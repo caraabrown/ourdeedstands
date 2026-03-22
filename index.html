@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Deed Stands — Protect What's Yours</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Raleway:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+:root {
+  --black: #060606;
+  --black-2: #0f0f0f;
+  --black-3: #161616;
+  --off-white: #F3EDE3;
+  --off-white-2: #E8E1D5;
+  --off-white-3: #D8D0C4;
+  --blue: #1A4FA0;
+  --blue-light: #2460BF;
+  --blue-dim: rgba(26,79,160,0.12);
+  --blue-border: rgba(26,79,160,0.28);
+  --text-on-dark: #F3EDE3;
+  --text-on-dark-muted: #9A9186;
+  --text-on-dark-dim: #52504C;
+  --text-on-light: #111111;
+  --text-on-light-muted: #555046;
+  --text-on-light-dim: #8A8278;
+  --border-dark: rgba(243,237,227,0.1);
+  --border-light: rgba(0,0,0,0.12);
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-heading: 'Oswald', sans-serif;
+  --font-sub: 'Raleway', sans-serif;
+  --font-body: 'IBM Plex Sans', sans-serif;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--black); color:var(--text-on-dark); font-family:var(--font-body); font-size:16px; line-height:1.6; overflow-x:hidden; }
+
+/* ---- NAV ---- */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:900;
+  background:rgba(6,6,6,0.95);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border-dark);
+  height:60px; padding:0 48px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.nav-logo { font-family:var(--font-display); font-size:20px; letter-spacing:.06em; color:var(--off-white); text-decoration:none; }
+.nav-logo span { color:var(--blue-light); }
+.nav-links { display:flex; align-items:center; gap:24px; list-style:none; }
+.nav-links a { font-family:var(--font-sub); font-size:11px; font-weight:600; letter-spacing:.13em; text-transform:uppercase; color:var(--text-on-dark-muted); text-decoration:none; transition:color .2s; }
+.nav-links a:hover { color:var(--off-white); }
+.nav-actions { display:flex; gap:10px; align-items:center; }
+.btn-nav-ghost { font-family:var(--font-sub); font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:9px 20px; border:1px solid rgba(243,237,227,.22); color:var(--off-white); text-decoration:none; transition:border-color .2s; }
+.btn-nav-ghost:hover { border-color:var(--off-white); }
+.btn-nav-solid { font-family:var(--font-sub); font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:9px 20px; background:var(--blue); color:#fff; text-decoration:none; transition:background .2s; }
+.btn-nav-solid:hover { background:var(--blue-light); }
+
+/* ---- HERO (Color of Change inspired) ---- */
+.hero {
+  min-height:100vh; padding-top:60px;
+  background:var(--black);
+  display:grid; grid-template-rows:1fr auto;
+  position:relative; overflow:hidden;
+}
+.hero-inner {
+  display:grid; grid-template-columns:1fr 1fr;
+  align-items:stretch; min-height:calc(100vh - 60px);
+}
+.hero-left {
+  padding:80px 64px 80px 80px;
+  display:flex; flex-direction:column; justify-content:center;
+  position:relative; z-index:2;
+  border-right:1px solid var(--border-dark);
+}
+.hero-tag {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--font-sub); font-size:10px; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--blue-light); margin-bottom:28px;
+}
+.hero-tag::before { content:''; width:28px; height:1px; background:var(--blue-light); display:block; }
+.hero-headline {
+  font-family:var(--font-heading); font-weight:700;
+  font-size:clamp(56px, 7.5vw, 96px);
+  line-height:.95; letter-spacing:-.01em;
+  color:var(--off-white); margin-bottom:28px;
+  text-transform:uppercase;
+}
+.hero-headline em { font-style:normal; color:var(--blue-light); display:block; }
+.hero-deck {
+  font-size:17px; font-weight:300; line-height:1.85;
+  color:var(--text-on-dark-muted); max-width:500px; margin-bottom:48px;
+}
+.hero-deck strong { color:var(--off-white); font-weight:500; }
+.hero-ctas { display:flex; gap:12px; flex-wrap:wrap; }
+.btn-primary-blue { font-family:var(--font-sub); font-size:11px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; padding:16px 32px; background:var(--blue); color:#fff; border:none; cursor:pointer; text-decoration:none; display:inline-block; transition:background .2s; }
+.btn-primary-blue:hover { background:var(--blue-light); }
+.btn-outline-white { font-family:var(--font-sub); font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; padding:15px 32px; background:transparent; color:var(--off-white); border:1px solid rgba(243,237,227,.3); cursor:pointer; text-decoration:none; display:inline-block; transition:border-color .2s, color .2s; }
+.btn-outline-white:hover { border-color:var(--off-white); }
+
+.hero-right {
+  position:relative; overflow:hidden;
+  display:flex; flex-direction:column;
+  background:var(--black-2);
+}
+.hero-stats-stack {
+  display:flex; flex-direction:column;
+  height:100%; justify-content:center;
+}
+.hero-stat {
+  padding:36px 52px; border-bottom:1px solid var(--border-dark);
+  position:relative; overflow:hidden;
+  transition:background .25s;
+}
+.hero-stat:last-child { border-bottom:none; }
+.hero-stat:hover { background:var(--black-3); }
+.hero-stat-num { font-family:var(--font-display); font-size:56px; line-height:1; color:var(--off-white); margin-bottom:6px; }
+.hero-stat-label { font-size:13px; color:var(--text-on-dark-muted); line-height:1.55; max-width:280px; }
+.hero-stat-source { font-size:10px; color:var(--text-on-dark-dim); margin-top:8px; font-style:italic; }
+.hero-stat-bar { position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--blue); }
+
+/* ---- TICKER ---- */
+.ticker { background:var(--blue); padding:10px 0; overflow:hidden; white-space:nowrap; }
+.ticker-inner { display:inline-block; animation:ticker 32s linear infinite; }
+.ticker-inner span { font-family:var(--font-heading); font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.9); padding:0 40px; }
+.ticker-inner span::before { content:'◆'; margin-right:40px; color:rgba(255,255,255,.3); }
+@keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+/* ---- LIGHT SECTIONS ---- */
+.light { background:var(--off-white); color:var(--text-on-light); }
+.light-2 { background:var(--off-white-2); color:var(--text-on-light); }
+section { padding:100px 80px; }
+.section-eyebrow-dark { font-family:var(--font-sub); font-size:10px; font-weight:800; letter-spacing:.22em; text-transform:uppercase; color:var(--text-on-dark-muted); margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+.section-eyebrow-dark::before { content:''; width:22px; height:1px; background:var(--text-on-dark-muted); display:block; }
+.section-eyebrow-light { font-family:var(--font-sub); font-size:10px; font-weight:800; letter-spacing:.22em; text-transform:uppercase; color:var(--blue); margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+.section-eyebrow-light::before { content:''; width:22px; height:1px; background:var(--blue); display:block; }
+.section-title-dark { font-family:var(--font-heading); font-size:clamp(30px,3.8vw,48px); font-weight:700; text-transform:uppercase; line-height:1.05; color:var(--off-white); margin-bottom:18px; }
+.section-title-light { font-family:var(--font-heading); font-size:clamp(30px,3.8vw,48px); font-weight:700; text-transform:uppercase; line-height:1.05; color:var(--text-on-light); margin-bottom:18px; }
+.section-lead-dark { font-size:16px; font-weight:300; line-height:1.85; color:var(--text-on-dark-muted); max-width:600px; margin-bottom:52px; }
+.section-lead-light { font-size:16px; font-weight:300; line-height:1.85; color:var(--text-on-light-muted); max-width:600px; margin-bottom:52px; }
+
+/* ---- THE PROBLEM ---- */
+.problem-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+.problem-card {
+  background:var(--off-white-2); padding:32px 30px;
+  border-top:3px solid var(--blue);
+  transition:background .2s;
+}
+.problem-card:hover { background:var(--off-white); }
+.problem-card-eyebrow { font-family:var(--font-sub); font-size:9px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; color:var(--blue); margin-bottom:10px; }
+.problem-card-title { font-family:var(--font-heading); font-size:17px; font-weight:600; color:var(--text-on-light); margin-bottom:10px; }
+.problem-card-body { font-size:13.5px; color:var(--text-on-light-muted); line-height:1.75; }
+
+/* ---- AL BROWN ---- */
+.story-layout { display:grid; grid-template-columns:5fr 7fr; gap:80px; align-items:start; }
+.story-img-wrap { position:relative; }
+.story-img-placeholder {
+  width:100%; aspect-ratio:3/4;
+  background:var(--black-3);
+  border:1px solid var(--border-dark);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;
+  position:relative; overflow:hidden;
+}
+.story-img-year { font-family:var(--font-display); font-size:160px; color:rgba(243,237,227,.04); position:absolute; bottom:-10px; right:-5px; line-height:1; }
+.story-img-label { font-family:var(--font-sub); font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--text-on-dark-muted); text-align:center; padding:0 32px; position:relative; z-index:1; }
+.story-img-sub { font-size:12px; font-style:italic; color:var(--text-on-dark-dim); text-align:center; padding:0 32px; position:relative; z-index:1; }
+.story-caption { margin-top:14px; font-size:12px; font-style:italic; color:var(--text-on-dark-muted); line-height:1.65; }
+.story-caption a { color:var(--blue-light); }
+.badges { display:flex; flex-wrap:wrap; gap:8px; margin:20px 0 28px; }
+.badge { font-family:var(--font-sub); font-size:9px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:5px 12px; border:1px solid var(--border-dark); color:var(--text-on-dark-muted); }
+.pull-quote { border-left:3px solid var(--blue-light); padding:18px 24px; margin:24px 0; background:rgba(26,79,160,.08); }
+.pull-quote p { font-family:var(--font-sub); font-size:17px; font-weight:600; line-height:1.6; color:var(--off-white); font-style:italic; }
+.body-p { font-size:15px; color:var(--text-on-dark-muted); line-height:1.85; margin-bottom:15px; }
+.body-p strong { color:var(--off-white); font-weight:500; }
+
+/* ---- MAP ---- */
+.map-wrap { position:relative; }
+#oakland-map { width:100%; height:560px; }
+.map-legend { position:absolute; bottom:24px; left:24px; z-index:1000; background:rgba(6,6,6,.96); border:1px solid var(--border-dark); padding:18px 22px; backdrop-filter:blur(8px); }
+.legend-title { font-family:var(--font-sub); font-size:9px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; color:var(--text-on-dark-muted); margin-bottom:12px; }
+.legend-item { display:flex; align-items:center; gap:10px; margin-bottom:7px; font-size:12px; color:var(--text-on-dark-muted); }
+.legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+.map-header { padding-bottom:0; }
+.map-sub { background:var(--black-3); padding:20px 80px; border-top:1px solid var(--border-dark); display:flex; align-items:center; justify-content:space-between; gap:40px; }
+.map-sub p { font-size:13px; color:var(--text-on-dark-muted); }
+.map-sub strong { color:var(--off-white); }
+
+/* ---- TAKE ACTION (Everytown-style) ---- */
+.action-section { background:var(--off-white); }
+.action-layout { display:grid; grid-template-columns:360px 1fr; gap:0; border:1px solid var(--border-light); min-height:600px; }
+.action-issues { background:var(--text-on-light); display:flex; flex-direction:column; }
+.action-issue-btn {
+  padding:22px 28px; border:none; border-bottom:1px solid rgba(255,255,255,.07);
+  background:transparent; cursor:pointer; text-align:left;
+  transition:background .2s; display:flex; align-items:flex-start; gap:14px;
+  position:relative;
+}
+.action-issue-btn:hover { background:rgba(255,255,255,.05); }
+.action-issue-btn.active { background:var(--blue); }
+.action-issue-btn.active::after { content:''; position:absolute; right:-1px; top:50%; transform:translateY(-50%); border-left:10px solid var(--blue); border-top:10px solid transparent; border-bottom:10px solid transparent; }
+.action-issue-icon { width:36px; height:36px; border:1px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+.action-issue-icon svg { width:16px; height:16px; stroke:rgba(255,255,255,.5); fill:none; stroke-width:1.5; }
+.action-issue-btn.active .action-issue-icon { border-color:rgba(255,255,255,.3); }
+.action-issue-btn.active .action-issue-icon svg { stroke:rgba(255,255,255,.9); }
+.action-issue-text {}
+.action-issue-label { font-family:var(--font-heading); font-size:14px; font-weight:600; color:rgba(255,255,255,.9); text-transform:uppercase; letter-spacing:.04em; margin-bottom:4px; }
+.action-issue-desc { font-size:11px; color:rgba(255,255,255,.45); line-height:1.5; }
+.action-issue-btn.active .action-issue-desc { color:rgba(255,255,255,.7); }
+.action-form-panel { background:var(--off-white); padding:48px; display:flex; flex-direction:column; }
+.action-form-panel.hidden { display:none; }
+.action-form-eyebrow { font-family:var(--font-sub); font-size:10px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--blue); margin-bottom:8px; }
+.action-form-title { font-family:var(--font-heading); font-size:26px; font-weight:700; text-transform:uppercase; color:var(--text-on-light); margin-bottom:8px; line-height:1.1; }
+.action-form-sub { font-size:14px; color:var(--text-on-light-muted); margin-bottom:28px; line-height:1.7; }
+.action-letter-preview { background:var(--off-white-2); border-left:3px solid var(--blue); padding:18px 20px; font-size:13px; line-height:1.8; color:var(--text-on-light-muted); margin-bottom:24px; max-height:160px; overflow-y:auto; white-space:pre-line; font-style:italic; }
+.action-letter-note { font-size:11px; color:var(--text-on-light-dim); margin-bottom:24px; font-style:italic; }
+.form-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.form-field { margin-bottom:14px; }
+.form-label { display:block; font-family:var(--font-sub); font-size:9px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; color:var(--text-on-light-muted); margin-bottom:6px; }
+.form-input-light, .form-textarea-light, .form-select-light { width:100%; background:#fff; border:1px solid var(--border-light); color:var(--text-on-light); font-family:var(--font-body); font-size:14px; padding:11px 14px; outline:none; transition:border-color .2s; -webkit-appearance:none; }
+.form-input-light:focus, .form-textarea-light:focus, .form-select-light:focus { border-color:var(--blue); }
+.form-textarea-light { resize:vertical; min-height:90px; }
+.form-select-light option { background:#fff; }
+.action-submit-row { display:flex; align-items:center; gap:20px; margin-top:6px; flex-wrap:wrap; }
+.action-count { font-size:13px; color:var(--text-on-light-muted); font-style:italic; }
+.action-success { display:none; padding:24px; background:rgba(26,79,160,.1); border:1px solid var(--blue-border); text-align:center; }
+.action-success-title { font-family:var(--font-heading); font-size:20px; font-weight:700; text-transform:uppercase; color:var(--blue); margin-bottom:8px; }
+.action-success-body { font-size:14px; color:var(--text-on-light-muted); }
+.action-no-selection { padding:48px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; color:var(--text-on-light-muted); }
+.action-no-selection-icon { font-size:40px; margin-bottom:16px; opacity:.3; }
+.action-no-selection-text { font-family:var(--font-heading); font-size:16px; font-weight:500; text-transform:uppercase; color:var(--text-on-light-dim); }
+
+/* ---- FUNDRAISE ---- */
+.fundraise-layout { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+.progress-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; }
+.progress-raised { font-family:var(--font-display); font-size:48px; color:var(--off-white); line-height:1; }
+.progress-goal { font-size:14px; color:var(--text-on-dark-muted); }
+.progress-bar { height:4px; background:var(--black-3); margin-bottom:7px; }
+.progress-fill { height:100%; background:var(--blue); width:0%; transition:width 1.4s ease; }
+.progress-note { font-size:12px; color:var(--text-on-dark-dim); font-style:italic; margin-bottom:36px; }
+.needs-list { display:flex; flex-direction:column; gap:2px; margin-bottom:32px; }
+.need-item { display:flex; align-items:center; gap:16px; padding:16px 18px; background:var(--black-3); }
+.need-icon { width:34px; height:34px; background:var(--blue-dim); border:1px solid var(--blue-border); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.need-icon svg { width:14px; height:14px; stroke:var(--blue-light); fill:none; stroke-width:1.5; }
+.need-text { font-size:14px; color:var(--off-white); }
+.need-amount { font-family:var(--font-heading); font-size:13px; color:var(--text-on-dark-muted); margin-left:auto; white-space:nowrap; }
+.form-card-dark { background:var(--black-3); border:1px solid var(--border-dark); padding:32px; }
+.form-card-title { font-family:var(--font-heading); font-size:18px; font-weight:600; text-transform:uppercase; color:var(--off-white); margin-bottom:6px; }
+.form-card-sub { font-size:13px; color:var(--text-on-dark-muted); margin-bottom:22px; line-height:1.65; }
+.form-input-dark, .form-textarea-dark, .form-select-dark { width:100%; background:var(--black-2); border:1px solid var(--border-dark); color:var(--off-white); font-family:var(--font-body); font-size:14px; padding:11px 14px; outline:none; transition:border-color .2s; resize:vertical; -webkit-appearance:none; }
+.form-input-dark:focus, .form-textarea-dark:focus, .form-select-dark:focus { border-color:var(--blue-light); }
+.form-textarea-dark { min-height:90px; }
+.form-select-dark option { background:var(--black-2); }
+.form-label-dark { display:block; font-family:var(--font-sub); font-size:9px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; color:var(--text-on-dark-muted); margin-bottom:6px; }
+
+/* ---- RIGHTS ---- */
+.rights-cols { display:grid; grid-template-columns:1fr 1fr; gap:60px; }
+.accordion-item { border-bottom:1px solid var(--border-light); }
+.accordion-trigger { display:flex; align-items:center; justify-content:space-between; padding:18px 0; cursor:pointer; user-select:none; gap:16px; }
+.accordion-trigger-title { font-family:var(--font-heading); font-size:15px; font-weight:500; color:var(--text-on-light); text-transform:uppercase; letter-spacing:.02em; line-height:1.35; }
+.accordion-chevron { width:22px; height:22px; flex-shrink:0; border:1px solid var(--border-light); display:flex; align-items:center; justify-content:center; transition:background .2s, transform .3s; }
+.accordion-chevron svg { width:10px; height:10px; stroke:var(--blue); fill:none; stroke-width:2; }
+.accordion-item.open .accordion-chevron { background:var(--blue); transform:rotate(45deg); }
+.accordion-item.open .accordion-chevron svg { stroke:#fff; }
+.accordion-body { display:none; padding-bottom:18px; font-size:13.5px; line-height:1.8; color:var(--text-on-light-muted); }
+.accordion-item.open .accordion-body { display:block; }
+
+/* ---- FLAG ---- */
+.flag-layout { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+.threat-tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+.threat-tag { font-family:var(--font-sub); font-size:11px; font-weight:600; letter-spacing:.06em; padding:7px 14px; background:transparent; border:1px solid var(--border-dark); color:var(--text-on-dark-muted); cursor:pointer; transition:background .2s, border-color .2s, color .2s; user-select:none; }
+.threat-tag:hover { border-color:var(--blue-light); color:var(--off-white); }
+.threat-tag.selected { background:var(--blue); border-color:var(--blue); color:#fff; }
+
+/* ---- STORIES ---- */
+.story-submit-layout { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+
+/* ---- LETTER MODAL ---- */
+.modal-overlay { display:none; position:fixed; inset:0; z-index:1100; background:rgba(0,0,0,.85); backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:40px; }
+.modal-overlay.active { display:flex; }
+.modal { background:var(--off-white); width:100%; max-width:680px; max-height:84vh; overflow-y:auto; padding:48px; position:relative; }
+.modal-close { position:absolute; top:18px; right:20px; background:none; border:none; color:var(--text-on-light-muted); font-size:20px; cursor:pointer; line-height:1; }
+.modal-close:hover { color:var(--text-on-light); }
+.modal-eyebrow { font-family:var(--font-sub); font-size:9px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--blue); margin-bottom:10px; }
+.modal-title { font-family:var(--font-heading); font-size:22px; font-weight:700; text-transform:uppercase; color:var(--text-on-light); margin-bottom:22px; }
+.modal-letter { font-size:13px; line-height:1.9; color:var(--text-on-light-muted); white-space:pre-line; background:var(--off-white-2); padding:22px; border-left:3px solid var(--blue); margin-bottom:22px; }
+.modal-actions { display:flex; gap:12px; }
+.btn-blue { font-family:var(--font-sub); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; padding:14px 26px; background:var(--blue); color:#fff; border:none; cursor:pointer; text-decoration:none; display:inline-block; transition:background .2s; }
+.btn-blue:hover { background:var(--blue-light); }
+.btn-outline-dark { font-family:var(--font-sub); font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:13px 26px; background:transparent; color:var(--text-on-light); border:1px solid var(--border-light); cursor:pointer; text-decoration:none; display:inline-block; transition:border-color .2s; }
+.btn-outline-dark:hover { border-color:var(--text-on-light); }
+
+/* ---- FOOTER ---- */
+footer { background:var(--black); border-top:1px solid var(--border-dark); }
+.footer-row-top { padding:64px 80px 48px; border-bottom:1px solid var(--border-dark); display:flex; justify-content:space-between; align-items:flex-start; gap:60px; }
+.footer-brand-name { font-family:var(--font-display); font-size:44px; letter-spacing:.04em; color:var(--off-white); display:block; margin-bottom:10px; }
+.footer-tagline { font-size:14px; font-style:italic; color:var(--text-on-dark-muted); max-width:380px; line-height:1.75; }
+.footer-creator { text-align:right; }
+.footer-creator-label { font-family:var(--font-sub); font-size:9px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--text-on-dark-dim); margin-bottom:6px; }
+.footer-creator-name { font-family:var(--font-heading); font-size:17px; font-weight:500; text-transform:uppercase; color:var(--off-white); margin-bottom:4px; }
+.footer-creator a { font-size:12px; color:var(--blue-light); text-decoration:none; }
+.footer-creator a:hover { text-decoration:underline; }
+.footer-creator-note { font-size:12px; color:var(--text-on-dark-dim); margin-top:8px; line-height:1.6; }
+.footer-row-nav { padding:52px 80px; display:grid; grid-template-columns:repeat(4,1fr); gap:40px; border-bottom:1px solid var(--border-dark); }
+.footer-col-title { font-family:var(--font-sub); font-size:9px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--text-on-dark-dim); margin-bottom:16px; }
+.footer-links { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.footer-links a { font-size:13px; color:var(--text-on-dark-muted); text-decoration:none; transition:color .2s; }
+.footer-links a:hover { color:var(--off-white); }
+.footer-divider { border:none; border-top:1px solid var(--border-dark); }
+.footer-bottom { padding:20px 80px; display:flex; align-items:center; justify-content:space-between; }
+.footer-copy { font-size:12px; color:var(--text-on-dark-dim); }
+.footer-copy a { color:var(--blue-light); text-decoration:none; }
+
+/* ---- REVEAL ---- */
+.reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ---- LEAFLET OVERRIDES ---- */
+.leaflet-popup-content-wrapper { background:var(--black-2); border:1px solid var(--border-dark); border-radius:0; box-shadow:0 8px 32px rgba(0,0,0,.7); }
+.leaflet-popup-tip { background:var(--black-2); }
+.leaflet-popup-content { margin:16px 18px; }
+.leaflet-container { background:#080808; }
+
+/* ---- RESPONSIVE ---- */
+@media(max-width:960px){
+  nav { padding:0 20px; }
+  .nav-links { display:none; }
+  section { padding:60px 24px; }
+  .hero-inner { grid-template-columns:1fr; }
+  .hero-right { display:none; }
+  .hero-left { padding:60px 24px; }
+  .problem-grid { grid-template-columns:1fr; }
+  .story-layout, .fundraise-layout, .flag-layout, .story-submit-layout, .rights-cols { grid-template-columns:1fr; gap:40px; }
+  .action-layout { grid-template-columns:1fr; }
+  .action-issues { flex-direction:row; overflow-x:auto; }
+  .action-issue-btn { min-width:180px; }
+  .action-issue-btn.active::after { display:none; }
+  .footer-row-top, .footer-row-nav, .footer-bottom { padding:40px 24px; }
+  .footer-row-nav { grid-template-columns:1fr 1fr; }
+  .footer-row-top { flex-direction:column; }
+  .footer-creator { text-align:left; }
+  .map-sub { padding:20px 24px; flex-direction:column; align-items:flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">The Deed <span>Stands</span></a>
+  <ul class="nav-links">
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#map">The Map</a></li>
+    <li><a href="#al-brown">A.L. Brown</a></li>
+    <li><a href="#take-action">Take Action</a></li>
+    <li><a href="#rights">Your Rights</a></li>
+    <li><a href="#flag">Flag Property</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="#rebuild" class="btn-nav-ghost">Rebuild the Block</a>
+    <a href="#take-action" class="btn-nav-solid">Take Action</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">West Oakland · National Advocacy Platform</div>
+      <h1 class="hero-headline">
+        They Are<br>Buying<br><em>Your Block.</em>
+      </h1>
+      <p class="hero-deck">
+        Private equity firms. Shell companies. Platforms built to help you buy a home — that are <strong>buying them instead.</strong> Predatory tax schemes that trap long-time owners into auctions. This is not a housing market. It is a coordinated extraction. And it ends when people like you refuse to look away.
+      </p>
+      <div class="hero-ctas">
+        <a href="#take-action" class="btn-primary-blue">Take Action Now</a>
+        <a href="#problem" class="btn-outline-white">See the Evidence</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stats-stack">
+        <div class="hero-stat reveal">
+          <div class="hero-stat-bar"></div>
+          <div class="hero-stat-num">30%</div>
+          <div class="hero-stat-label">of all US single-family home purchases in 2024 were made by institutional investors — not families</div>
+          <div class="hero-stat-source">Nonprofit Quarterly, 2025</div>
+        </div>
+        <div class="hero-stat reveal">
+          <div class="hero-stat-bar"></div>
+          <div class="hero-stat-num">13%</div>
+          <div class="hero-stat-label">of Oakland homes acquired by institutional investors in a single quarter — up 16.9% year over year</div>
+          <div class="hero-stat-source">Redfin via Berkeley City Council Report</div>
+        </div>
+        <div class="hero-stat reveal">
+          <div class="hero-stat-bar"></div>
+          <div class="hero-stat-num">4×</div>
+          <div class="hero-stat-label">more vacant homes in Oakland than people sleeping on its streets without shelter</div>
+          <div class="hero-stat-source">Moms 4 Housing, 2020</div>
+        </div>
+        <div class="hero-stat reveal">
+          <div class="hero-stat-bar"></div>
+          <div class="hero-stat-num">$240K</div>
+          <div class="hero-stat-label">the racial wealth gap in 2024 — widened directly by corporate displacement of Black homeowning families</div>
+          <div class="hero-stat-source">Nonprofit Quarterly, 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>30% of all US single-family home purchases in 2024 were by institutional investors</span>
+    <span>Oakland: 4× more vacant homes than homeless residents</span>
+    <span>Private equity landlords are 18% more likely to evict tenants than other landlords</span>
+    <span>Blackstone holds 82,000 single-family properties valued at $1.7 billion</span>
+    <span>Prop 19 stripped most California heirs of their parent's property tax protections</span>
+    <span>Shell companies own 3+ million US homes — with no required owner disclosure</span>
+    <span>30% of all US single-family home purchases in 2024 were by institutional investors</span>
+    <span>Oakland: 4× more vacant homes than homeless residents</span>
+    <span>Private equity landlords are 18% more likely to evict tenants than other landlords</span>
+    <span>Blackstone holds 82,000 single-family properties valued at $1.7 billion</span>
+    <span>Prop 19 stripped most California heirs of their parent's property tax protections</span>
+    <span>Shell companies own 3+ million US homes — with no required owner disclosure</span>
+  </div>
+</div>
+
+<!-- THE PROBLEM -->
+<section class="light" id="problem">
+  <div class="section-eyebrow-light">The Problem</div>
+  <h2 class="section-title-light">This is not a housing crisis.<br>It is a coordinated extraction.</h2>
+  <p class="section-lead-light">What is happening to West Oakland — and to communities across America — is not an accident of the market. It is the market working exactly as intended when corporations have unlimited capital and communities have no seat at the table.</p>
+  <div class="problem-grid reveal">
+    <div class="problem-card">
+      <div class="problem-card-eyebrow">Scheme 01</div>
+      <div class="problem-card-title">Corporate Buyouts &amp; Shell Companies</div>
+      <div class="problem-card-body">Firms like Blackstone, Wedgewood, and thousands of anonymous LLCs are buying homes with all-cash, above-ask, inspection-free speed — pricing out every individual buyer before a showing is scheduled. More than 3 million US homes are owned by LLC entities not required to disclose who is behind them.</div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-card-eyebrow">Scheme 02</div>
+      <div class="problem-card-title">Strategic Tax Notification Failure</div>
+      <div class="problem-card-body">Long-term homeowners are deliberately under-notified of tax obligations. They incur fees. They enter vulnerable legal status. Their property becomes eligible for county auction — where investors are already waiting. In 2023, A.L. Brown nearly lost this building through this exact mechanism. He caught it. Most people don't.</div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-card-eyebrow">Scheme 03</div>
+      <div class="problem-card-title">Proposition 19 &amp; Inheritance Tax Traps</div>
+      <div class="problem-card-body">California's Prop 19 (2020) stripped most children of the right to inherit a parent's low property tax assessment unless they move in within one year. The resulting financial pressure is forcing families to sell generational wealth that took a lifetime — sometimes generations — to build.</div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-card-eyebrow">Scheme 04</div>
+      <div class="problem-card-title">Real Estate Platforms as Competing Buyers</div>
+      <div class="problem-card-body">Zillow, Opendoor, and similar platforms — built and marketed as tools to help you find a home — entered the market as active purchasers themselves, using algorithmic pricing and instant-offer tools to absorb inventory before it ever reached a family who wanted to buy it.</div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-card-eyebrow">Scheme 05</div>
+      <div class="problem-card-title">A Generation Locked Out</div>
+      <div class="problem-card-body">Millennials and Xennials were not priced out of homeownership by income alone. They were timed out — entering their prime buying years just as corporations with cheap institutional debt flooded the market. The American Dream was not deferred. It was purchased wholesale, at scale, before they had a chance.</div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-card-eyebrow">Scheme 06</div>
+      <div class="problem-card-title">Permit &amp; Code Violation Harassment</div>
+      <div class="problem-card-body">Investors and developers use local code enforcement as a weapon — repeatedly filing complaints against long-time owners, manufacturing compliance burdens and legal costs designed to force a sale. It happens block by block, and it is happening in West Oakland right now.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section style="padding:80px 80px 0;" id="map">
+  <div class="section-eyebrow-dark">Property Map</div>
+  <h2 class="section-title-dark">West Oakland: Deeds at Risk</h2>
+  <p class="section-lead-dark" style="margin-bottom:36px;">Every marker tells a story. Click to see what happened — and to send a pre-written letter directly to the right Oakland official.</p>
+</section>
+<div class="map-wrap">
+  <div id="oakland-map"></div>
+  <div class="map-legend">
+    <div class="legend-title">Map Key</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#E8E1D5;"></div>A.L. Brown — The Deed Stands</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#C42B2B;"></div>Sold to investor / LLC</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#E5A020;"></div>Resident-flagged: at risk</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#1A4FA0;"></div>Protected / community-held</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#4A4A4A;"></div>Vacant / unknown owner</div>
+  </div>
+</div>
+<div class="map-sub">
+  <p><strong>Is your property missing?</strong> Submit it below and we'll add it, verify it, and connect you with resources.</p>
+  <a href="#flag" class="btn-blue">Flag Your Property</a>
+</div>
+
+<!-- A.L. BROWN -->
+<section style="background:var(--black-2);" id="al-brown">
+  <div class="section-eyebrow-dark">The Story Behind This Site</div>
+  <div class="story-layout">
+    <div class="reveal">
+      <div class="story-img-placeholder">
+        <div class="story-img-label">2617 San Pablo Ave · Built 1893</div>
+        <div class="story-img-sub">Archival photographs coming soon.<br>Have photos from this block pre-2001?<br>We want them.</div>
+        <div class="story-img-year">A.L.</div>
+      </div>
+      <p class="story-caption" style="margin-top:12px;">Brothers Brewing Co. operated at this address. Photos of A.L. Brown, the building, and the neighborhood will be placed here. <a href="#stories">Contact us if you have archival materials.</a></p>
+    </div>
+    <div class="reveal">
+      <h2 class="section-title-dark">A.L. Brown<br>The Unofficial Mayor<br>of West Oakland</h2>
+      <div class="badges">
+        <span class="badge">Owner Since Age 17</span>
+        <span class="badge">Built 1893</span>
+        <span class="badge">Black Filmmakers Hall of Fame</span>
+        <span class="badge">56 Years &amp; Counting</span>
+        <span class="badge">Cultural Anchor</span>
+      </div>
+      <p class="body-p">A.L. Brown was 17 years old when he became the owner of 2617 San Pablo Avenue — a building constructed in 1893. He is now 73. That is 56 years of ownership, stewardship, and community in a neighborhood that has been systematically targeted for extraction.</p>
+      <div class="pull-quote">
+        <p>"Before the big shows, they'd come to the house to rehearse. The music was always here."</p>
+      </div>
+      <p class="body-p">In the 1960s through the 1980s, A.L. and his brothers were social fixtures of Oakland's cultural scene. The major touring acts that came to play Oakland would rehearse at the house on San Pablo before their performances. This building stood at the center of a living, breathing West Oakland that corporate developers now want to erase and rebrand.</p>
+      <p class="body-p">A.L. served on the board of the <strong>Black Filmmakers Hall of Fame</strong> — Oakland's celebrated institution honoring Black artists' contributions to American cinema. He rented his ground-floor commercial space to Brothers Brewing Company, a neighborhood institution at 2615–2617 San Pablo that became a community landmark.</p>
+      <p class="body-p">In 2023, A.L. nearly lost this building through a system designed to let him lose it — incomplete tax notification left him in violation, accumulating fees, with the property at risk of county auction. He found out, paid immediately, and walked into City Hall to resolve it. <strong>But what about the people who don't have the knowledge, resources, or time to do that?</strong> That question is why this site exists.</p>
+      <a href="#rebuild" class="btn-primary-blue" style="margin-top:8px;">Help Rebuild His Building</a>
+    </div>
+  </div>
+</section>
+
+<!-- TAKE ACTION -->
+<section class="action-section" id="take-action">
+  <div class="section-eyebrow-light">Take Action</div>
+  <h2 class="section-title-light">Select an issue. Send a petition.</h2>
+  <p class="section-lead-light" style="margin-bottom:36px;">Choose the issue that affects you or your community. A pre-written petition to the appropriate Oakland official is generated instantly — fill in your details and submit directly from this page. No redirect. No runaround.</p>
+
+  <div class="action-layout">
+    <div class="action-issues">
+      <button class="action-issue-btn" onclick="selectIssue(0, this)" data-issue="0">
+        <div class="action-issue-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div class="action-issue-text">
+          <div class="action-issue-label">Tax Auction Scheme</div>
+          <div class="action-issue-desc">Missed notification, sudden fees, auction risk</div>
+        </div>
+      </button>
+      <button class="action-issue-btn" onclick="selectIssue(1, this)" data-issue="1">
+        <div class="action-issue-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></div>
+        <div class="action-issue-text">
+          <div class="action-issue-label">Corporate / LLC Buyout</div>
+          <div class="action-issue-desc">Shell company purchased nearby property</div>
+        </div>
+      </button>
+      <button class="action-issue-btn" onclick="selectIssue(2, this)" data-issue="2">
+        <div class="action-issue-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div class="action-issue-text">
+          <div class="action-issue-label">Illegal Eviction Notice</div>
+          <div class="action-issue-desc">Eviction that may violate Just Cause ordinance</div>
+        </div>
+      </button>
+      <button class="action-issue-btn" onclick="selectIssue(3, this)" data-issue="3">
+        <div class="action-issue-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <div class="action-issue-text">
+          <div class="action-issue-label">Code Violation Harassment</div>
+          <div class="action-issue-desc">Repeated, suspicious code complaints targeting your property</div>
+        </div>
+      </button>
+      <button class="action-issue-btn" onclick="selectIssue(4, this)" data-issue="4">
+        <div class="action-issue-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div class="action-issue-text">
+          <div class="action-issue-label">Prop 19 Inheritance Burden</div>
+          <div class="action-issue-desc">Inherited property, unaffordable tax reassessment</div>
+        </div>
+      </button>
+      <button class="action-issue-btn" onclick="selectIssue(5, this)" data-issue="5">
+        <div class="action-issue-icon"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
+        <div class="action-issue-text">
+          <div class="action-issue-label">Demand Transparency</div>
+          <div class="action-issue-desc">Petition for LLC disclosure and investor reporting</div>
+        </div>
+      </button>
+    </div>
+
+    <div id="action-panel">
+      <div class="action-no-selection">
+        <div class="action-no-selection-icon">←</div>
+        <div class="action-no-selection-text">Select an issue to generate your petition</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REBUILD -->
+<section style="background:var(--black);" id="rebuild">
+  <div class="fundraise-layout">
+    <div>
+      <div class="section-eyebrow-dark">Rebuild the Block</div>
+      <h2 class="section-title-dark">Help A.L. Brown Keep What He Built</h2>
+      <p class="section-lead-dark">A building that has stood since 1893 needs critical work to stand another 130 years — and to remain in the hands of the family that has protected it for over half a century.</p>
+      <div>
+        <div class="progress-header">
+          <span class="progress-raised">$0</span>
+          <span class="progress-goal">Goal: $25,000</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="progress-note">GoFundMe launching soon. Submit your email below to be notified at launch.</div>
+      </div>
+      <div class="needs-list">
+        <div class="need-item">
+          <div class="need-icon"><svg viewBox="0 0 24 24"><path d="M13 2v7h7"/><path d="M2 12V6a2 2 0 012-2h8l6 6v10a2 2 0 01-2 2H4a2 2 0 01-2-2v-4"/></svg></div>
+          <div class="need-text">Full electrical system replacement &amp; reconnection</div>
+          <div class="need-amount">~$15,000</div>
+        </div>
+        <div class="need-item">
+          <div class="need-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 10h6M12 7v6"/></svg></div>
+          <div class="need-text">2 commercial bathrooms for ground-floor units</div>
+          <div class="need-amount">~$7,000</div>
+        </div>
+        <div class="need-item">
+          <div class="need-icon"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></div>
+          <div class="need-text">Junk hauling &amp; interior clearance</div>
+          <div class="need-amount">~$3,000</div>
+        </div>
+      </div>
+      <a href="#" class="btn-primary-blue" style="margin-right:12px;">Donate Now</a>
+      <a href="#offer-help" class="btn-outline-white">Offer Skills or Labor</a>
+    </div>
+    <div id="offer-help" class="form-card-dark reveal">
+      <div class="form-card-title">Can't Give Money?<br>Give Something Better.</div>
+      <div class="form-card-sub">If you have skills, tools, labor, or materials — tell us. Every offer is reviewed and responded to directly.</div>
+      <div class="form-field">
+        <label class="form-label-dark">Your Name</label>
+        <input type="text" class="form-input-dark" placeholder="First and last name">
+      </div>
+      <div class="form-field">
+        <label class="form-label-dark">Email Address</label>
+        <input type="email" class="form-input-dark" placeholder="you@email.com">
+      </div>
+      <div class="form-field">
+        <label class="form-label-dark">What can you offer?</label>
+        <select class="form-select-dark">
+          <option value="">Select a category</option>
+          <option>Licensed electrician</option>
+          <option>Licensed plumber</option>
+          <option>General labor / hauling</option>
+          <option>Construction materials</option>
+          <option>Project management</option>
+          <option>Legal or permitting expertise</option>
+          <option>Other — describe below</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label class="form-label-dark">Tell us more</label>
+        <textarea class="form-textarea-dark" placeholder="Describe what you're offering, your availability, and any relevant experience."></textarea>
+      </div>
+      <div class="form-field">
+        <label class="form-label-dark">Notify me at GoFundMe launch</label>
+        <select class="form-select-dark">
+          <option>Yes — email me</option>
+          <option>No thanks</option>
+        </select>
+      </div>
+      <button class="btn-primary-blue" style="width:100%;" onclick="alert('Thank you. Your offer has been received and will be reviewed within 48 hours.')">Submit My Offer</button>
+    </div>
+  </div>
+</section>
+
+<!-- KNOW YOUR RIGHTS -->
+<section class="light-2" id="rights">
+  <div class="section-eyebrow-light">Know Your Rights</div>
+  <h2 class="section-title-light">What the law says —<br>and what it won't do without you acting first.</h2>
+  <p class="section-lead-light">Oakland homeowners have more protections than most realize. You also have more vulnerabilities than anyone tells you. Here is what you need to know before it becomes an emergency.</p>
+  <div class="rights-cols">
+    <div>
+      <div class="accordion-item open">
+        <div class="accordion-trigger" onclick="this.parentElement.classList.toggle('open')">
+          <div class="accordion-trigger-title">Oakland's Just Cause for Eviction Ordinance</div>
+          <div class="accordion-chevron"><svg viewBox="0 0 14 14"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
+        </div>
+        <div class="accordion-body">Oakland's Just Cause for Eviction ordinance (OMC 8.22.300) requires landlords to have a legally documented reason to evict. Corporate buyers frequently attempt evictions that violate this law — especially immediately following a sale or LLC transfer. If you receive a notice that feels pretextual, contact the Oakland City Attorney's Office or Centro Legal de la Raza immediately. Do not wait.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-trigger" onclick="this.parentElement.classList.toggle('open')">
+          <div class="accordion-trigger-title">Property Tax Notification Rights</div>
+          <div class="accordion-chevron"><svg viewBox="0 0 14 14"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
+        </div>
+        <div class="accordion-body">Alameda County must notify property owners of delinquent taxes by mail to the address on file. If your address is outdated, you will not receive notice — and you will still be held liable. Update your address with the Alameda County Assessor annually. Tax sale auctions can move quickly. You have the right to redeem your property before the auction finalizes — but only if you act in time.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-trigger" onclick="this.parentElement.classList.toggle('open')">
+          <div class="accordion-trigger-title">Proposition 19 — Critical for Heirs</div>
+          <div class="accordion-chevron"><svg viewBox="0 0 14 14"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
+        </div>
+        <div class="accordion-body">Prop 19 (2020) changed inheritance rules dramatically. Children who inherit a parent's home can no longer preserve the parent's low property tax assessment unless they move into the home as their primary residence within one year. Many families are being financially forced to sell properties they intended to keep. Understand this law before a parent passes — not after.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-trigger" onclick="this.parentElement.classList.toggle('open')">
+          <div class="accordion-trigger-title">Shell Company Ownership — Your Right to Know</div>
+          <div class="accordion-chevron"><svg viewBox="0 0 14 14"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
+        </div>
+        <div class="accordion-body">Most states do not require LLCs to disclose true owners. The entity attempting to purchase your building, evict you, or foreclose may be untraceable to any named individual. The Alameda County Assessor's Office and California Secretary of State database are your first resources. FinCEN's new beneficial ownership disclosure requirements (2024) now offer an additional federal tool.</div>
+      </div>
+    </div>
+    <div>
+      <div class="accordion-item">
+        <div class="accordion-trigger" onclick="this.parentElement.classList.toggle('open')">
+          <div class="accordion-trigger-title">Your Right to Bid at Tax Auctions</div>
+          <div class="accordion-chevron"><svg viewBox="0 0 14 14"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
+        </div>
+        <div class="accordion-body">Alameda County holds public tax defaulted property auctions. Any person can bid — including neighbors, community land trusts, and nonprofits. Oakland City Council has called for the City to proactively acquire auctioned properties for affordable housing. Community organizations can also register for First Look programs for priority bidding.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-trigger" onclick="this.parentElement.classList.toggle('open')">
+          <div class="accordion-trigger-title">Oakland Rent Adjustment Program</div>
+          <div class="accordion-chevron"><svg viewBox="0 0 14 14"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
+        </div>
+        <div class="accordion-body">For properties built before 1983 with 3 or more units, Oakland's Rent Adjustment Program caps annual rent increases and requires landlord registration. If your building was recently purchased by an LLC and rents are spiking or maintenance is being denied, file a petition. It is free. It can halt illegal increases while your case is reviewed.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-trigger" onclick="this.parentElement.classList.toggle('open')">
+          <div class="accordion-trigger-title">How and Where to File Complaints</div>
+          <div class="accordion-chevron"><svg viewBox="0 0 14 14"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
+        </div>
+        <div class="accordion-body">File with: Oakland City Attorney's Office (illegal evictions), California Department of Real Estate (agent violations), Consumer Financial Protection Bureau (predatory lending), and HUD (housing discrimination). Document everything — screenshot every communication, photograph every notice, keep copies of all mail. The burden of proof is yours. Start the paper trail before you think you need it.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-trigger" onclick="this.parentElement.classList.toggle('open')">
+          <div class="accordion-trigger-title">Free Legal Help in Oakland</div>
+          <div class="accordion-chevron"><svg viewBox="0 0 14 14"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
+        </div>
+        <div class="accordion-body">Centro Legal de la Raza: free and low-cost housing legal services. Bay Area Legal Aid: covers Alameda County residents facing eviction. Causa Justa :: Just Cause: tenant and homeowner organizing. Alameda County Bar Association: lawyer referral. You do not need money to get legal help — but you need to reach out before a deadline expires. Call on the day you receive a notice.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLAG PROPERTY -->
+<section style="background:var(--black-2);" id="flag">
+  <div class="flag-layout">
+    <div>
+      <div class="section-eyebrow-dark">Flag Your Property</div>
+      <h2 class="section-title-dark">Being Targeted?<br>We Need to Know.</h2>
+      <p class="body-p" style="font-size:15px; margin-bottom:16px;">Every submission becomes part of a growing national dataset. We are mapping the pattern of predatory activity in Oakland — and eventually every American city. The more you tell us, the clearer the scheme becomes.</p>
+      <p class="body-p" style="font-size:15px; margin-bottom:28px;">After you submit, you will receive a tailored response — the exact steps to take, the offices to contact, and the letters to send. We respond within 24 hours.</p>
+      <p class="body-p" style="font-size:12px; color:var(--text-on-dark-dim); margin-bottom:14px;">Select all that apply to your situation:</p>
+      <div class="threat-tags">
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Unexpected tax bill</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Auction notice</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Unsolicited cash offer</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Eviction filing</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">LLC bought neighbor's home</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Inheritance tax burden</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Permit harassment</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Code violation notices</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Missed notifications</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Other</div>
+      </div>
+    </div>
+    <div class="form-card-dark reveal">
+      <div class="form-field">
+        <label class="form-label-dark">Your Name</label>
+        <input type="text" class="form-input-dark" placeholder="First and last name">
+      </div>
+      <div class="form-field">
+        <label class="form-label-dark">Email Address</label>
+        <input type="email" class="form-input-dark" placeholder="you@email.com">
+      </div>
+      <div class="form-field">
+        <label class="form-label-dark">Property Address</label>
+        <input type="text" class="form-input-dark" placeholder="Street address, City, State">
+      </div>
+      <div class="form-field">
+        <label class="form-label-dark">Your relationship to this property</label>
+        <select class="form-select-dark">
+          <option value="">Select one</option>
+          <option>Property owner</option>
+          <option>Tenant</option>
+          <option>Family member of owner</option>
+          <option>Neighbor / community member</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label class="form-label-dark">How long in your family?</label>
+        <select class="form-select-dark">
+          <option value="">Select one</option>
+          <option>Less than 5 years</option>
+          <option>5–15 years</option>
+          <option>15–30 years</option>
+          <option>30–50 years</option>
+          <option>50+ years</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label class="form-label-dark">How urgent is your situation?</label>
+        <select class="form-select-dark">
+          <option value="">Select one</option>
+          <option>Crisis — less than 30 days</option>
+          <option>Urgent — actively under pressure</option>
+          <option>Monitoring — watching for escalation</option>
+          <option>Research — learning before it happens</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label class="form-label-dark">Describe what's happening</label>
+        <textarea class="form-textarea-dark" style="min-height:110px;" placeholder="Include any notices received, dates, company names, official names, and what outcome you're trying to prevent."></textarea>
+      </div>
+      <button class="btn-primary-blue" style="width:100%;" onclick="alert('Submitted. Your tailored action plan will be sent to the email you provided within 24 hours.')">Submit &amp; Get Your Action Plan</button>
+    </div>
+  </div>
+</section>
+
+<!-- SHARE YOUR STORY -->
+<section class="light" id="stories">
+  <div class="section-eyebrow-light">Community Testimonies</div>
+  <div class="story-submit-layout">
+    <div>
+      <h2 class="section-title-light">What happened to you?</h2>
+      <p class="section-lead-light">We are building a verified national record of predatory real estate practices. Your account — whether it ended in loss, survival, or a fight still in progress — helps expose the system behind every individual story.</p>
+      <p style="font-size:14px; color:var(--text-on-light-muted); line-height:1.8;">Every story you submit helps this platform recognize patterns in your city and state — and give the next person faster, more specific answers. Anonymity is fully available. All submissions are reviewed before publishing.</p>
+    </div>
+    <div class="reveal">
+      <div style="background:var(--off-white-2); border:1px solid var(--border-light); padding:32px;">
+        <div class="form-field">
+          <label class="form-label">Your Name (or type Anonymous)</label>
+          <input type="text" class="form-input-light" placeholder="Your name, or 'Anonymous'">
+        </div>
+        <div class="form-field">
+          <label class="form-label">City &amp; State</label>
+          <input type="text" class="form-input-light" placeholder="e.g. Oakland, CA — or any US city">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Type of predatory practice</label>
+          <select class="form-select-light">
+            <option value="">Select primary type</option>
+            <option>Tax auction scheme</option>
+            <option>Predatory foreclosure</option>
+            <option>Corporate / LLC buyout pressure</option>
+            <option>Inheritance tax burden</option>
+            <option>Illegal eviction</option>
+            <option>Permit &amp; code violation harassment</option>
+            <option>Unsolicited purchase pressure</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Outcome (so far)</label>
+          <select class="form-select-light">
+            <option value="">Select one</option>
+            <option>Property was lost</option>
+            <option>Currently fighting</option>
+            <option>Resolved — I held on</option>
+            <option>Resolved — had to sell</option>
+            <option>Unresolved / ongoing</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Tell your story</label>
+          <textarea class="form-textarea-light" style="min-height:130px;" placeholder="What happened? Who was involved? What did they do and what did you do? The more detail, the more it helps someone else."></textarea>
+        </div>
+        <div class="form-field">
+          <label class="form-label">May we publish your story?</label>
+          <select class="form-select-light">
+            <option>Yes — use my name</option>
+            <option>Yes — anonymous only</option>
+            <option>No — internal research use only</option>
+          </select>
+        </div>
+        <button class="btn-primary-blue" style="width:100%;" onclick="alert('Thank you. Your story has been submitted for review.')">Submit Your Story</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LETTER MODAL -->
+<div class="modal-overlay" id="letter-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('letter-modal').classList.remove('active')">✕</button>
+    <div class="modal-eyebrow">Pre-Written Letter · Oakland City Officials</div>
+    <div class="modal-title" id="modal-address-title">Send a Letter</div>
+    <div class="modal-letter" id="modal-letter-text"></div>
+    <div class="modal-actions">
+      <button class="btn-blue" onclick="copyModalLetter(event)">Copy Letter</button>
+      <a href="#" class="btn-outline-dark" id="modal-email-link" target="_blank">Open in Email</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-row-top">
+    <div>
+      <span class="footer-brand-name">The Deed Stands.</span>
+      <div class="footer-tagline">Because a home is not an asset class. It is proof that you were here, that you built something, and that it belongs to you — and to the people who come after you.</div>
+    </div>
+    <div class="footer-creator">
+      <div class="footer-creator-label">Created by</div>
+      <div class="footer-creator-name">Alanne International</div>
+      <div style="margin-top:5px;"><a href="https://www.getclarity.consulting" target="_blank">getclarity.consulting</a></div>
+      <div class="footer-creator-note">Cara A. Brown, MBA<br>In defense of A.L. Brown —<br>and every family like ours.</div>
+    </div>
+  </div>
+  <div class="footer-row-nav">
+    <div>
+      <div class="footer-col-title">The Issue</div>
+      <ul class="footer-links">
+        <li><a href="#problem">The Problem</a></li>
+        <li><a href="#problem">Who's Behind It</a></li>
+        <li><a href="#problem">National Scope</a></li>
+        <li><a href="#stories">Community Stories</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Take Action</div>
+      <ul class="footer-links">
+        <li><a href="#map">The Map</a></li>
+        <li><a href="#take-action">Send a Petition</a></li>
+        <li><a href="#flag">Flag Your Property</a></li>
+        <li><a href="#rebuild">Support A.L. Brown</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Know Your Rights</div>
+      <ul class="footer-links">
+        <li><a href="#rights">Oakland Protections</a></li>
+        <li><a href="#rights">Tax Auction Rights</a></li>
+        <li><a href="#rights">Proposition 19</a></li>
+        <li><a href="#rights">Free Legal Help</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Resources</div>
+      <ul class="footer-links">
+        <li><a href="https://centrolegal.org" target="_blank">Centro Legal de la Raza</a></li>
+        <li><a href="https://www.baylegal.org" target="_blank">Bay Area Legal Aid</a></li>
+        <li><a href="https://cjjc.org" target="_blank">Causa Justa :: Just Cause</a></li>
+        <li><a href="https://www.oaklandca.gov" target="_blank">Oakland City Hall</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr class="footer-divider">
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 The Deed Stands · <a href="https://www.getclarity.consulting" target="_blank">Alanne International</a></div>
+    <div class="footer-copy">West Oakland, CA · National Advocacy Platform</div>
+  </div>
+</footer>
+
+<script>
+// ---- PETITION DATA ----
+var petitions = [
+  {
+    issue: "Tax Auction & Notification Failure",
+    to: "Mayor Sheng Thao & Alameda County Tax Collector",
+    email: "MayorThao@oaklandca.gov",
+    subject: "Formal Complaint: Tax Notification Failure & Property Auction Risk",
+    letter: function(name, addr) {
+      return "To: Mayor Sheng Thao, Oakland City Council, and the Alameda County Tax Collector\nRe: Predatory Tax Notification Practices — " + (addr||"[Property Address]") + "\n\nDear City Officials,\n\nI am writing to formally document and object to the practice of inadequate property tax notification in Alameda County, which is placing long-term Oakland homeowners at risk of property loss through tax auction.\n\nThis is not an isolated error. It is a pattern. Long-standing owners — many of them elderly, working-class, and Black — are not receiving timely or adequate notification of tax obligations. By the time they become aware, they face compounding penalties, legal vulnerability, and the imminent risk of their property entering county auction where institutional investors are already positioned to bid.\n\nI am requesting that the City of Oakland and Alameda County:\n\n1. Conduct an audit of tax notification procedures for properties owned by residents 60 years of age and older\n2. Implement redundant notification (email, certified mail, phone) for all tax delinquency warnings\n3. Create a hardship window that allows owners to cure delinquency without penalty before auction eligibility\n4. Investigate whether auction timing and notification gaps disproportionately affect long-term homeowners of color\n\nThis building — and the people in it — deserve protection, not extraction.\n\nRespectfully,\n" + (name||"[Your Name]") + "\n[Your Address]\n[Your Email / Phone]";
+    }
+  },
+  {
+    issue: "Corporate / LLC Property Acquisition",
+    to: "Mayor Sheng Thao & Oakland City Council",
+    email: "MayorThao@oaklandca.gov",
+    subject: "Petition: Corporate LLC Real Estate Acquisition — Demand Transparency & Regulation",
+    letter: function(name, addr) {
+      return "To: Mayor Sheng Thao and the Oakland City Council\nRe: Institutional Investor & LLC Property Acquisition — " + (addr||"[Property Address/Neighborhood]") + "\n\nDear City Officials,\n\nI am writing to formally petition the City of Oakland to take immediate action regarding the mass acquisition of residential properties by institutional investors and anonymous LLC entities in our community.\n\nAt " + (addr||"the address referenced") + " and throughout West Oakland, properties are being acquired by entities that are not required to disclose their true beneficial owners. This opacity allows corporations to operate without accountability while displacing families and community members who have owned and maintained these properties for generations.\n\nI am requesting that the City of Oakland:\n\n1. Pass an ordinance requiring disclosure of beneficial ownership for all LLC property purchases within city limits\n2. Implement a right-of-first-refusal policy giving current tenants and community land trusts priority purchase rights on investor-held properties\n3. Report quarterly on the percentage of residential property in each Oakland neighborhood owned by corporate entities\n4. Investigate whether any municipal tax incentives or zoning approvals are being extended to institutional investors whose practices contribute to community displacement\n\nOur neighborhoods are not investment portfolios. They are communities.\n\nRespectfully,\n" + (name||"[Your Name]") + "\n[Your Address]\n[Your Email / Phone]";
+    }
+  },
+  {
+    issue: "Illegal or Predatory Eviction",
+    to: "Oakland City Attorney & Oakland Rent Adjustment Program",
+    email: "cityattorney@oaklandca.gov",
+    subject: "Formal Complaint: Potential Just Cause Eviction Violation",
+    letter: function(name, addr) {
+      return "To: Oakland City Attorney and the Oakland Rent Adjustment Program\nRe: Potential Just Cause Eviction Violation — " + (addr||"[Property Address]") + "\n\nDear City Attorney and Rent Adjustment Program,\n\nI am writing to file a formal complaint regarding an eviction notice received at " + (addr||"[the above address]") + " that I believe violates Oakland's Just Cause for Eviction Ordinance (OMC 8.22.300).\n\nThe eviction notice was issued without a legally recognized just cause reason as required under the ordinance. The property in question is covered by Oakland's rent and eviction protections, and the issuing landlord or LLC has not provided documentation of a legitimate grounds for eviction.\n\nI am requesting that your office:\n\n1. Review this eviction filing for compliance with OMC 8.22.300\n2. Contact the issuing landlord or LLC to verify legal grounds\n3. Provide me with the name and contact information of the beneficial owner of the LLC if applicable\n4. Initiate enforcement proceedings if a violation is found\n\nI am prepared to provide documentation, correspondence, and a full timeline of events upon request.\n\nRespectfully,\n" + (name||"[Your Name]") + "\n[Your Address]\n[Your Email / Phone]";
+    }
+  },
+  {
+    issue: "Code Violation Harassment",
+    to: "Oakland Building Services & City Council",
+    email: "buildingservices@oaklandca.gov",
+    subject: "Formal Complaint: Suspected Code Violation Harassment Campaign",
+    letter: function(name, addr) {
+      return "To: Oakland Building Services Division and the Oakland City Council\nRe: Suspected Code Violation Harassment — " + (addr||"[Property Address]") + "\n\nDear City Officials,\n\nI am writing to formally report what I believe to be a pattern of bad-faith code violation complaints targeting the property at " + (addr||"[the above address]") + ".\n\nOver the past [time period], this property has received [number] code complaints, the majority of which have been found to be unsubstantiated upon inspection. The frequency and nature of these complaints suggest a coordinated effort to burden the property owner with compliance costs and legal exposure — a tactic documented in cities across the US as a precursor to forced sale to an investor or developer.\n\nI am requesting that your office:\n\n1. Review the source and pattern of complaints filed against this property\n2. Determine whether any single party or agent is responsible for the majority of filings\n3. Investigate whether the complainant has a financial interest in the acquisition of this property\n4. Establish a formal process for flagging suspected bad-faith complaint campaigns\n\nLong-term homeowners deserve protection from this form of harassment.\n\nRespectfully,\n" + (name||"[Your Name]") + "\n[Your Address]\n[Your Email / Phone]";
+    }
+  },
+  {
+    issue: "Prop 19 Inheritance Reform",
+    to: "California State Assembly & Oakland City Council",
+    email: "MayorThao@oaklandca.gov",
+    subject: "Petition: Prop 19 Reform — Protect Generational Homeownership",
+    letter: function(name, addr) {
+      return "To: California State Assembly Housing Committee and the Oakland City Council\nRe: Proposition 19 Reform — Generational Property at " + (addr||"[Property Address]") + "\n\nDear State and City Officials,\n\nI am writing to petition for reform or supplemental protection under California's Proposition 19, which since 2020 has imposed severe financial burdens on families inheriting properties from parents and grandparents.\n\nProp 19 eliminated the ability of most heirs to maintain a parent's low property tax assessment unless they move into the inherited property within one year as their primary residence. The financial pressure created by reassessment to current market value is forcing families — many of them middle-class, working-class, and of color — to sell properties that represent their family's only generational wealth.\n\nI am requesting that lawmakers:\n\n1. Amend Prop 19 to include a hardship extension for families who cannot immediately relocate into an inherited property\n2. Create a tax deferral program for inherited properties held by low-to-moderate income heirs\n3. Establish a community outreach program to ensure families are informed of Prop 19 implications before a property transfer occurs\n4. Investigate and report on the rate at which Prop 19 reassessments are leading to sales to institutional investors\n\nGenerational homeownership is the foundation of community stability. These policies are dismantling it.\n\nRespectfully,\n" + (name||"[Your Name]") + "\n[Your Address]\n[Your Email / Phone]";
+    }
+  },
+  {
+    issue: "Demand LLC Ownership Transparency",
+    to: "Mayor Sheng Thao, City Council & CA State Assembly",
+    email: "MayorThao@oaklandca.gov",
+    subject: "Petition: Require Beneficial Ownership Disclosure for All Residential LLCs",
+    letter: function(name, addr) {
+      return "To: Mayor Sheng Thao, Oakland City Council, and the California State Assembly\nRe: Beneficial Ownership Transparency for Residential Property LLCs\n\nDear City and State Officials,\n\nI am writing to petition for immediate legislative action requiring disclosure of the true beneficial owners of all limited liability companies that own residential property in the City of Oakland and the State of California.\n\nOver 3 million homes across the United States are currently owned by LLC entities that are not required to name the individuals who control or profit from them. This opacity shields predatory actors from accountability, makes enforcement of housing laws nearly impossible, and enables systematic displacement of longtime residents without consequence.\n\nI am requesting:\n\n1. A City of Oakland ordinance requiring all LLCs owning residential property within city limits to file beneficial ownership disclosures with the City Clerk annually\n2. State legislation requiring the same at the California level, consistent with FinCEN's 2024 federal beneficial ownership rule\n3. Public access to a database of LLC-owned residential properties in Oakland, updated quarterly\n4. Financial penalties for LLCs that fail to comply with disclosure requirements\n\nYou cannot protect a community from an enemy that is allowed to remain invisible.\n\nRespectfully,\n" + (name||"[Your Name]") + "\n[Your Address]\n[Your Email / Phone]";
+    }
+  }
+];
+
+var selectedIssue = -1;
+
+function selectIssue(idx, btn) {
+  selectedIssue = idx;
+  document.querySelectorAll('.action-issue-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  var p = petitions[idx];
+  var panel = document.getElementById('action-panel');
+  panel.innerHTML = '<div class="action-form-panel" id="form-panel-' + idx + '">' +
+    '<div class="action-form-eyebrow">Petition · ' + p.to + '</div>' +
+    '<div class="action-form-title">' + p.issue + '</div>' +
+    '<div class="action-form-sub">This letter is addressed directly to the appropriate Oakland official. Fill in your details below — it submits from this page. No redirect, no separate login.</div>' +
+    '<div class="action-letter-preview" id="letter-preview-' + idx + '">' + p.letter('', '') + '</div>' +
+    '<div class="action-letter-note">Your name and address will be inserted into the letter automatically when you fill in the fields below.</div>' +
+    '<div class="form-grid-2">' +
+      '<div class="form-field"><label class="form-label">First Name</label><input type="text" class="form-input-light" id="fn-'+idx+'" placeholder="First" oninput="updatePreview('+idx+')" ></div>' +
+      '<div class="form-field"><label class="form-label">Last Name</label><input type="text" class="form-input-light" id="ln-'+idx+'" placeholder="Last" oninput="updatePreview('+idx+')" ></div>' +
+    '</div>' +
+    '<div class="form-grid-2">' +
+      '<div class="form-field"><label class="form-label">Email Address</label><input type="email" class="form-input-light" id="em-'+idx+'" placeholder="you@email.com"></div>' +
+      '<div class="form-field"><label class="form-label">Your City & State</label><input type="text" class="form-input-light" id="city-'+idx+'" placeholder="Oakland, CA" oninput="updatePreview('+idx+')" ></div>' +
+    '</div>' +
+    '<div class="form-field"><label class="form-label">Property Address (optional)</label><input type="text" class="form-input-light" id="addr-'+idx+'" placeholder="Address this petition concerns (if applicable)" oninput="updatePreview('+idx+')" ></div>' +
+    '<div class="form-field"><label class="form-label">Add a personal note (optional — appended to letter)</label><textarea class="form-textarea-light" id="note-'+idx+'" style="min-height:70px;" placeholder="Add your personal experience or context..."></textarea></div>' +
+    '<div class="action-submit-row">' +
+      '<button class="btn-primary-blue" onclick="submitPetition(' + idx + ')">Sign &amp; Send Petition</button>' +
+      '<span class="action-count">Be the first to sign this petition</span>' +
+    '</div>' +
+    '<div class="action-success" id="success-'+idx+'"><div class="action-success-title">Petition Sent.</div><div class="action-success-body">Your letter has been submitted to ' + p.to + '. Share this page to multiply the pressure.</div></div>' +
+  '</div>';
+}
+
+function updatePreview(idx) {
+  var fn = document.getElementById('fn-'+idx);
+  var ln = document.getElementById('ln-'+idx);
+  var addr = document.getElementById('addr-'+idx);
+  var city = document.getElementById('city-'+idx);
+  var name = ((fn?fn.value:'')+' '+(ln?ln.value:'')).trim() || '';
+  var address = (addr?addr.value:'') || '';
+  var preview = document.getElementById('letter-preview-'+idx);
+  if (preview) preview.textContent = petitions[idx].letter(name, address);
+}
+
+function submitPetition(idx) {
+  var fn = document.getElementById('fn-'+idx);
+  var ln = document.getElementById('ln-'+idx);
+  var em = document.getElementById('em-'+idx);
+  var addr = document.getElementById('addr-'+idx);
+  var note = document.getElementById('note-'+idx);
+  if (!fn||!fn.value||!ln||!ln.value||!em||!em.value) {
+    alert('Please fill in your first name, last name, and email to sign the petition.');
+    return;
+  }
+  var p = petitions[idx];
+  var name = fn.value + ' ' + ln.value;
+  var address = addr ? addr.value : '';
+  var letterText = p.letter(name, address);
+  if (note && note.value) letterText += '\n\n—\n' + note.value;
+  var mailLink = 'mailto:' + p.email + '?subject=' + encodeURIComponent(p.subject) + '&body=' + encodeURIComponent(letterText);
+  window.location.href = mailLink;
+  var s = document.getElementById('success-'+idx);
+  if (s) { s.style.display='block'; }
+}
+
+// MAP
+var map = L.map('oakland-map', { center:[37.8135,-122.2837], zoom:15, scrollWheelZoom:false });
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution:'&copy; OpenStreetMap &copy; CARTO', subdomains:'abcd', maxZoom:19 }).addTo(map);
+
+function mk(color, size) {
+  size = size||13;
+  return L.divIcon({ className:'', html:'<div style="width:'+size+'px;height:'+size+'px;border-radius:50%;background:'+color+';border:2px solid rgba(255,255,255,.2);box-shadow:0 0 8px '+color+'66;"></div>', iconSize:[size,size], iconAnchor:[size/2,size/2] });
+}
+
+function mapPopup(color, label, title, sub, showLetter) {
+  var btn = showLetter ? '<button onclick="openMapLetter(\''+title+'\')" style="margin-top:12px;background:#1A4FA0;color:#fff;border:none;padding:9px 14px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;width:100%;">Send Letter to City Officials →</button>' : '';
+  return '<div style="font-family:IBM Plex Sans,sans-serif;min-width:220px;"><div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:'+color+';margin-bottom:5px;">'+label+'</div><div style="font-size:14px;font-weight:600;color:#F3EDE3;margin-bottom:4px;">'+title+'</div><div style="font-size:12px;color:#9A9186;line-height:1.5;">'+sub+'</div>'+btn+'</div>';
+}
+
+L.marker([37.8135,-122.2837],{icon:mk('#E8E1D5',20)}).addTo(map).bindPopup(mapPopup('#E8E1D5','The Deed Stands','2617 San Pablo Ave','Owned by A.L. Brown since 1969 · Built 1893 · 56 years of ownership.',false));
+
+[[37.8152,-122.2851,'2534 Myrtle St','Sold to out-of-state LLC, 2022'],
+ [37.8118,-122.2870,'1847 Adeline St','Purchased by investment fund, 2021'],
+ [37.8165,-122.2809,'2701 Market St','Flipped 3 times since 2019'],
+ [37.8099,-122.2830,'3012 San Pablo Ave','Acquired by anonymous LLC, 2023'],
+ [37.8140,-122.2892,'1765 Peralta St','Sold at tax auction to investor, 2022'],
+ [37.8178,-122.2858,'2888 West Grand Ave','Bulk-purchased by REIT, Q1 2024']
+].forEach(function(p){ L.marker([p[0],p[1]],{icon:mk('#C42B2B')}).addTo(map).bindPopup(mapPopup('#C42B2B','Sold to Investor / LLC',p[2],p[3],true)); });
+
+[[37.8128,-122.2855,'2480 Poplar St','Owner flagged: 4 unsolicited cash offers this year'],
+ [37.8155,-122.2820,'2810 West St','Tax notification irregularity reported'],
+ [37.8107,-122.2876,'1923 Filbert St','Code violation harassment reported'],
+ [37.8170,-122.2840,'3141 Myrtle St','Prop 19 inheritance pressure — family considering sale'],
+ [37.8090,-122.2865,'1644 7th St','Repeated unsolicited developer contact']
+].forEach(function(p){ L.marker([p[0],p[1]],{icon:mk('#E5A020')}).addTo(map).bindPopup(mapPopup('#E5A020','Resident-Flagged: At Risk',p[2],p[3],true)); });
+
+L.marker([37.8143,-122.2862],{icon:mk('#1A4FA0')}).addTo(map).bindPopup(mapPopup('#1A4FA0','Protected','Oakland Community Land Trust','Community-held since 2018 — permanently protected from speculative sale.',false));
+
+function openMapLetter(address) {
+  var p = petitions[1];
+  var letter = p.letter('', address);
+  document.getElementById('modal-address-title').textContent = address;
+  document.getElementById('modal-letter-text').textContent = letter;
+  document.getElementById('modal-email-link').href = 'mailto:'+p.email+'?subject='+encodeURIComponent('Predatory Real Estate Activity — '+address)+'&body='+encodeURIComponent(letter);
+  document.getElementById('letter-modal').classList.add('active');
+}
+
+function copyModalLetter(e) {
+  navigator.clipboard.writeText(document.getElementById('modal-letter-text').textContent).then(function(){ e.target.textContent='Copied!'; setTimeout(function(){ e.target.textContent='Copy Letter'; },2000); });
+}
+
+document.getElementById('letter-modal').addEventListener('click', function(e){ if(e.target===this) this.classList.remove('active'); });
+
+// SCROLL REVEAL
+new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); } }); },{ threshold:0.07 }).observe && document.querySelectorAll('.reveal').forEach(function(el){ new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); } }); },{ threshold:0.07 }).observe(el); });
+
+// PROGRESS
+var pf = document.getElementById('progress-fill');
+new IntersectionObserver(function(e){ if(e[0].isIntersecting) setTimeout(function(){ pf.style.width='1%'; },300); },{threshold:.5}).observe(pf);
+</script>
+</body>
+</html>

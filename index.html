@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Deed Stands — Protect What's Yours</title>
+<title>Our Deed Stands — Protect What's Yours</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Raleway:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -277,7 +277,17 @@ section { padding:100px 80px; }
 /* ---- STORIES ---- */
 .story-submit-layout { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
 
-/* ---- LETTER MODAL ---- */
+/* ---- CAMPAIGN WALL ---- */
+.gf-card { background:var(--black-2); border:1px solid var(--border-dark); padding:22px 24px; margin-bottom:10px; }
+.gf-card-name { font-family:var(--font-heading); font-size:15px; font-weight:600; text-transform:uppercase; color:var(--off-white); margin-bottom:3px; }
+.gf-card-tenure { font-size:11px; color:var(--blue-light); letter-spacing:.06em; margin-bottom:10px; }
+.gf-card-desc { font-size:13px; color:var(--text-on-dark-muted); line-height:1.7; margin-bottom:10px; }
+.gf-card-purpose { font-family:var(--font-sub); font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--text-on-dark-dim); margin-bottom:14px; }
+.gf-donate-btn { display:block; text-align:center; font-family:var(--font-sub); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; padding:12px; background:var(--blue); color:#fff; text-decoration:none; transition:background .2s; }
+.gf-donate-btn:hover { background:var(--blue-light); }
+.gf-empty { font-size:13px; color:var(--text-on-dark-dim); font-style:italic; padding:16px 0; }
+
+/* ---- CAMPAIGN WALL ---- */
 .modal-overlay { display:none; position:fixed; inset:0; z-index:1100; background:rgba(0,0,0,.85); backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:40px; }
 .modal-overlay.active { display:flex; }
 .modal { background:var(--off-white); width:100%; max-width:680px; max-height:84vh; overflow-y:auto; padding:48px; position:relative; }
@@ -349,7 +359,7 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">The Deed <span>Stands</span></a>
+  <a href="#" class="nav-logo">Our Deed <span>Stands</span></a>
   <ul class="nav-links">
     <li><a href="#problem">The Problem</a></li>
     <li><a href="#map">The Map</a></li>
@@ -370,10 +380,10 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
     <div class="hero-left">
       <div class="hero-tag">West Oakland · National Advocacy Platform</div>
       <h1 class="hero-headline">
-        They Are<br>Buying<br><em>Your Block.</em>
+        They Are<br>Stealing<br><em>Our Neighborhoods.</em>
       </h1>
       <p class="hero-deck">
-        Private equity firms. Shell companies. Platforms built to help you buy a home — that are <strong>buying them instead.</strong> Predatory tax schemes that trap long-time owners into auctions. This is not a housing market. It is a coordinated extraction. And it ends when people like you refuse to look away.
+        Private equity firms. Shell companies. Platforms built to help citizens buy a home — that are <strong>scooping up the inventory before families ever get a showing.</strong> Predatory tax schemes that trap long-time owners into auctions. This is not a housing market. It is a coordinated heist. And it ends when people like you refuse to look away.
       </p>
       <div class="hero-ctas">
         <a href="#take-action" class="btn-primary-blue">Take Action Now</a>
@@ -433,7 +443,7 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
 <section class="light" id="problem">
   <div class="section-eyebrow-light">The Problem</div>
   <h2 class="section-title-light">This is not a housing crisis.<br>It is a coordinated extraction.</h2>
-  <p class="section-lead-light">What is happening to West Oakland — and to communities across America — is not an accident of the market. It is the market working exactly as intended when corporations have unlimited capital and communities have no seat at the table.</p>
+  <p class="section-lead-light">What is happening to all parts of Oakland — and to communities across America — is not accidental. It is modern capitalism working exactly as intended when corporations have unlimited funds and communities have no means to protect their assets.</p>
   <div class="problem-grid reveal">
     <div class="problem-card">
       <div class="problem-card-eyebrow">Scheme 01</div>
@@ -478,7 +488,7 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
   <div id="oakland-map"></div>
   <div class="map-legend">
     <div class="legend-title">Map Key</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#E8E1D5;"></div>A.L. Brown — The Deed Stands</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#E8E1D5;"></div>A.L. Brown — Our Deed Stands</div>
     <div class="legend-item"><div class="legend-dot" style="background:#C42B2B;"></div>Sold to investor / LLC</div>
     <div class="legend-item"><div class="legend-dot" style="background:#E5A020;"></div>Resident-flagged: at risk</div>
     <div class="legend-item"><div class="legend-dot" style="background:#1A4FA0;"></div>Protected / community-held</div>
@@ -508,10 +518,10 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
         <span class="badge">Owner Since Age 17</span>
         <span class="badge">Built 1893</span>
         <span class="badge">Black Filmmakers Hall of Fame</span>
-        <span class="badge">56 Years &amp; Counting</span>
+        <span class="badge"><span id="al-years-badge"></span> Years &amp; Counting</span>
         <span class="badge">Cultural Anchor</span>
       </div>
-      <p class="body-p">A.L. Brown was 17 years old when he became the owner of 2617 San Pablo Avenue — a building constructed in 1893. He is now 73. That is 56 years of ownership, stewardship, and community in a neighborhood that has been systematically targeted for extraction.</p>
+      <p class="body-p">A.L. Brown was 17 years old when he became the owner of 2617 San Pablo Avenue — a building constructed in 1893. He is now <span id="al-age"></span>. That is <span id="al-years"></span> years of ownership, stewardship, and community in a neighborhood that has been systematically targeted for extraction.</p>
       <div class="pull-quote">
         <p>"Before the big shows, they'd come to the house to rehearse. The music was always here."</p>
       </div>
@@ -573,6 +583,20 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
           <div class="action-issue-desc">Petition for LLC disclosure and investor reporting</div>
         </div>
       </button>
+      <button class="action-issue-btn" onclick="selectIssue(6, this)" data-issue="6">
+        <div class="action-issue-icon"><svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
+        <div class="action-issue-text">
+          <div class="action-issue-label">Probate &amp; Estate Vulnerability</div>
+          <div class="action-issue-desc">No will, probate risk, or assets being drained in probate</div>
+        </div>
+      </button>
+      <button class="action-issue-btn" onclick="selectIssue(7, this)" data-issue="7">
+        <div class="action-issue-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg></div>
+        <div class="action-issue-text">
+          <div class="action-issue-label">Buyer Harassment</div>
+          <div class="action-issue-desc">Investors knocking on doors, calling repeatedly, pressuring sale</div>
+        </div>
+      </button>
     </div>
 
     <div id="action-panel">
@@ -617,7 +641,10 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
         </div>
       </div>
       <a href="#" class="btn-primary-blue" style="margin-right:12px;">Donate Now</a>
-      <a href="#offer-help" class="btn-outline-white">Offer Skills or Labor</a>
+      <a href="#offer-help" class="btn-outline-white">Offer Skills or Materials</a>
+      <div style="margin-top:16px;">
+        <a href="#community-needs" class="btn-outline-white" style="font-size:10px;">Add Your Own Needs to This List</a>
+      </div>
     </div>
     <div id="offer-help" class="form-card-dark reveal">
       <div class="form-card-title">Can't Give Money?<br>Give Something Better.</div>
@@ -722,7 +749,9 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
           <div class="accordion-trigger-title">Free Legal Help in Oakland</div>
           <div class="accordion-chevron"><svg viewBox="0 0 14 14"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg></div>
         </div>
-        <div class="accordion-body">Centro Legal de la Raza: free and low-cost housing legal services. Bay Area Legal Aid: covers Alameda County residents facing eviction. Causa Justa :: Just Cause: tenant and homeowner organizing. Alameda County Bar Association: lawyer referral. You do not need money to get legal help — but you need to reach out before a deadline expires. Call on the day you receive a notice.</div>
+        <div class="accordion-body">Centro Legal de la Raza: free and low-cost housing legal services. Bay Area Legal Aid: covers Alameda County residents facing eviction. Causa Justa :: Just Cause: tenant and homeowner organizing. Alameda County Bar Association: lawyer referral. You do not need money to get legal help — but you need to reach out before a deadline expires. Call on the day you receive a notice.
+        <br><br>
+        <strong style="color:var(--text-on-light);">For ongoing legal access:</strong> <a href="https://www.legalshield.com" target="_blank" style="color:var(--blue);font-weight:600;">LegalShield</a> is a membership service that costs approximately $20/month and gives members access to a full law firm — for questions, document review, letters on your behalf, and more. If you are a homeowner in any state and you want a lawyer on call before a crisis happens, this is worth exploring. <em style="color:var(--text-on-light-dim);">This site receives no commission from recommending LegalShield. We recommend it because it works.</em></div>
       </div>
     </div>
   </div>
@@ -747,6 +776,10 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
         <div class="threat-tag" onclick="this.classList.toggle('selected')">Permit harassment</div>
         <div class="threat-tag" onclick="this.classList.toggle('selected')">Code violation notices</div>
         <div class="threat-tag" onclick="this.classList.toggle('selected')">Missed notifications</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Probate / no will</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Assets drained in probate</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Investor door-knocking</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Repeated unsolicited calls</div>
         <div class="threat-tag" onclick="this.classList.toggle('selected')">Other</div>
       </div>
     </div>
@@ -799,6 +832,100 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
         <textarea class="form-textarea-dark" style="min-height:110px;" placeholder="Include any notices received, dates, company names, official names, and what outcome you're trying to prevent."></textarea>
       </div>
       <button class="btn-primary-blue" style="width:100%;" onclick="alert('Submitted. Your tailored action plan will be sent to the email you provided within 24 hours.')">Submit &amp; Get Your Action Plan</button>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY NEEDS -->
+<section style="background:var(--black-3); border-top:1px solid var(--border-dark);" id="community-needs">
+  <div class="section-eyebrow-dark">Community Fund Wall</div>
+  <h2 class="section-title-dark">Neighbors Helping Neighbors</h2>
+  <p class="section-lead-dark" style="margin-bottom:40px;">If you are a long-time Oakland homeowner facing repair costs, legal fees, or rehab needs and you have started a GoFundMe — list it here. This site does not handle money. We simply connect your campaign to people who want to help.</p>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;">
+    <!-- HOW TO STEPS -->
+    <div>
+      <div style="display:flex; flex-direction:column; gap:2px; margin-bottom:36px;">
+        <div style="background:var(--black-2); padding:22px 24px; display:flex; gap:18px; align-items:flex-start;">
+          <div style="font-family:var(--font-display); font-size:36px; color:var(--blue-light); line-height:1; flex-shrink:0; width:40px;">1</div>
+          <div>
+            <div style="font-family:var(--font-heading); font-size:14px; font-weight:600; text-transform:uppercase; color:var(--off-white); margin-bottom:6px;">Create your GoFundMe</div>
+            <div style="font-size:13px; color:var(--text-on-dark-muted); line-height:1.7;">Go to <a href="https://www.gofundme.com/start" target="_blank" style="color:var(--blue-light);">gofundme.com/start</a> and set up your campaign. Be specific — describe your property, how long your family has owned it, and exactly what the funds will repair or cover. Specific campaigns raise more.</div>
+          </div>
+        </div>
+        <div style="background:var(--black-2); padding:22px 24px; display:flex; gap:18px; align-items:flex-start;">
+          <div style="font-family:var(--font-display); font-size:36px; color:var(--blue-light); line-height:1; flex-shrink:0; width:40px;">2</div>
+          <div>
+            <div style="font-family:var(--font-heading); font-size:14px; font-weight:600; text-transform:uppercase; color:var(--off-white); margin-bottom:6px;">Copy your GoFundMe link</div>
+            <div style="font-size:13px; color:var(--text-on-dark-muted); line-height:1.7;">Once your campaign is live, copy the full URL from your browser. It will look like: <span style="font-family:monospace; font-size:12px; color:var(--text-on-dark-muted); background:var(--black); padding:2px 6px;">gofundme.com/f/your-campaign-name</span></div>
+          </div>
+        </div>
+        <div style="background:var(--black-2); padding:22px 24px; display:flex; gap:18px; align-items:flex-start;">
+          <div style="font-family:var(--font-display); font-size:36px; color:var(--blue-light); line-height:1; flex-shrink:0; width:40px;">3</div>
+          <div>
+            <div style="font-family:var(--font-heading); font-size:14px; font-weight:600; text-transform:uppercase; color:var(--off-white); margin-bottom:6px;">Submit it here</div>
+            <div style="font-size:13px; color:var(--text-on-dark-muted); line-height:1.7;">Fill in the form on the right. Your campaign will appear on this page immediately — with a direct donate button — so visitors can support you without leaving this site.</div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--black-2); border-left:3px solid var(--blue); padding:18px 22px;">
+        <div style="font-size:12px; color:var(--text-on-dark-muted); line-height:1.8; font-style:italic;">Our Deed Stands does not process, hold, or receive any funds. All donations go directly through GoFundMe to the campaign owner. We are connecting neighbors to neighbors — nothing more.</div>
+      </div>
+    </div>
+
+    <!-- SUBMIT FORM -->
+    <div>
+      <div class="form-card-dark" style="margin-bottom:32px;">
+        <div class="form-card-title">List Your Campaign</div>
+        <div class="form-card-sub">All submissions are reviewed before appearing. We verify that campaigns are from genuine long-time Oakland area homeowners.</div>
+        <div class="form-field">
+          <label class="form-label-dark">Your Name</label>
+          <input type="text" class="form-input-dark" id="gf-name" placeholder="First and last name">
+        </div>
+        <div class="form-field">
+          <label class="form-label-dark">Your Property Address</label>
+          <input type="text" class="form-input-dark" id="gf-address" placeholder="Oakland, CA address">
+        </div>
+        <div class="form-field">
+          <label class="form-label-dark">How long has your family owned this property?</label>
+          <select class="form-select-dark" id="gf-tenure">
+            <option value="">Select one</option>
+            <option>5–15 years</option>
+            <option>15–30 years</option>
+            <option>30–50 years</option>
+            <option>50+ years</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label-dark">What are the funds for?</label>
+          <input type="text" class="form-input-dark" id="gf-purpose" placeholder="e.g. Electrical repair, roof replacement, legal fees">
+        </div>
+        <div class="form-field">
+          <label class="form-label-dark">Your GoFundMe Link</label>
+          <input type="url" class="form-input-dark" id="gf-link" placeholder="https://www.gofundme.com/f/your-campaign">
+        </div>
+        <div class="form-field">
+          <label class="form-label-dark">Brief description (shown on this site)</label>
+          <textarea class="form-textarea-dark" id="gf-desc" style="min-height:80px;" placeholder="One or two sentences about your situation and what you need."></textarea>
+        </div>
+        <button class="btn-primary-blue" style="width:100%;" onclick="submitGofundme()">Submit My Campaign</button>
+      </div>
+
+      <!-- LIVE CAMPAIGN WALL -->
+      <div>
+        <div style="font-family:var(--font-sub); font-size:10px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; color:var(--text-on-dark-dim); margin-bottom:16px;">Active Community Campaigns</div>
+        <div id="gf-wall">
+          <!-- A.L. Brown anchor campaign -->
+          <div class="gf-card">
+            <div class="gf-card-name">A.L. Brown · 2617 San Pablo Ave</div>
+            <div class="gf-card-tenure">Owner since 1969 · 55+ years</div>
+            <div class="gf-card-desc">Electrical system replacement, 2 commercial bathrooms, and junk hauling to restore a historic West Oakland building built in 1893.</div>
+            <div class="gf-card-purpose">Electrical · Plumbing · Rehab</div>
+            <a href="#" class="gf-donate-btn">GoFundMe Launching Soon — Check Back</a>
+          </div>
+          <div id="gf-submitted-wall"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -883,7 +1010,7 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
 <footer>
   <div class="footer-row-top">
     <div>
-      <span class="footer-brand-name">The Deed Stands.</span>
+      <span class="footer-brand-name">Our Deed Stands.</span>
       <div class="footer-tagline">Because a home is not an asset class. It is proof that you were here, that you built something, and that it belongs to you — and to the people who come after you.</div>
     </div>
     <div class="footer-creator">
@@ -933,7 +1060,7 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
   </div>
   <hr class="footer-divider">
   <div class="footer-bottom">
-    <div class="footer-copy">© 2025 The Deed Stands · <a href="https://www.getclarity.consulting" target="_blank">Alanne International</a></div>
+    <div class="footer-copy">© 2025 Our Deed Stands · <a href="https://www.getclarity.consulting" target="_blank">Alanne International</a></div>
     <div class="footer-copy">West Oakland, CA · National Advocacy Platform</div>
   </div>
 </footer>
@@ -987,12 +1114,21 @@ var petitions = [
     }
   },
   {
-    issue: "Demand LLC Ownership Transparency",
-    to: "Mayor Sheng Thao, City Council & CA State Assembly",
+    issue: "Probate Vulnerability & Estate Planning",
+    to: "Oakland City Council & California State Assembly",
     email: "MayorThao@oaklandca.gov",
-    subject: "Petition: Require Beneficial Ownership Disclosure for All Residential LLCs",
+    subject: "Petition: Protect Homeowners from Probate Exploitation — Mandate Estate Planning Education",
     letter: function(name, addr) {
-      return "To: Mayor Sheng Thao, Oakland City Council, and the California State Assembly\nRe: Beneficial Ownership Transparency for Residential Property LLCs\n\nDear City and State Officials,\n\nI am writing to petition for immediate legislative action requiring disclosure of the true beneficial owners of all limited liability companies that own residential property in the City of Oakland and the State of California.\n\nOver 3 million homes across the United States are currently owned by LLC entities that are not required to name the individuals who control or profit from them. This opacity shields predatory actors from accountability, makes enforcement of housing laws nearly impossible, and enables systematic displacement of longtime residents without consequence.\n\nI am requesting:\n\n1. A City of Oakland ordinance requiring all LLCs owning residential property within city limits to file beneficial ownership disclosures with the City Clerk annually\n2. State legislation requiring the same at the California level, consistent with FinCEN's 2024 federal beneficial ownership rule\n3. Public access to a database of LLC-owned residential properties in Oakland, updated quarterly\n4. Financial penalties for LLCs that fail to comply with disclosure requirements\n\nYou cannot protect a community from an enemy that is allowed to remain invisible.\n\nRespectfully,\n" + (name||"[Your Name]") + "\n[Your Address]\n[Your Email / Phone]";
+      return "To: Mayor Sheng Thao, Oakland City Council, and the California State Assembly\nRe: Probate Vulnerability & Predatory Estate Practices — " + (addr||"[Property Address]") + "\n\nDear City and State Officials,\n\nI am writing to petition for legislation and community programs that protect Oakland homeowners and their families from losing property through the probate process — a system that is being actively exploited by investors and developers to acquire assets from grieving families at a fraction of their value.\n\nMost homeowners do not know that dying without a will forces their estate into probate — a costly, time-consuming court process that can drain property equity through legal fees, delay distributions to heirs for years, and create a public court record that puts investor-buyers on notice before the family has time to respond.\n\nProbate properties are actively targeted by real estate investors. Families under grief, financial pressure, and legal complexity are being pressured into distressed sales they do not have to make.\n\nI am requesting:\n\n1. A City of Oakland funded estate planning outreach program, specifically targeting homeowners over age 55, providing free or low-cost will preparation and trust formation services\n2. A state-funded probate counseling program that connects families in probate with free legal advocates before any sale or transfer decision is made\n3. Legislation requiring a mandatory 90-day waiting period before any probate property sale to an investor or LLC can be finalized — giving families time to understand their options\n4. A public awareness campaign through Oakland libraries, senior centers, and community organizations informing residents that a will and/or living trust can prevent probate entirely\n\nNo family should lose a home because they did not know a will existed — or because they did not know they needed one.\n\nRespectfully,\n" + (name||"[Your Name]") + "\n[Your Address]\n[Your Email / Phone]";
+    }
+  },
+  {
+    issue: "Investor Harassment & Predatory Solicitation",
+    to: "Oakland City Attorney & City Council",
+    email: "cityattorney@oaklandca.gov",
+    subject: "Formal Complaint: Predatory Buyer Harassment of Homeowners",
+    letter: function(name, addr) {
+      return "To: Oakland City Attorney and the Oakland City Council\nRe: Predatory Investor Solicitation & Harassment — " + (addr||"[Property Address]") + "\n\nDear City Officials,\n\nI am writing to formally report sustained, unwanted, and predatory contact from real estate investors and buyer representatives targeting the homeowner at " + (addr||"[the above address]") + ".\n\nThis contact includes repeated unsolicited visits to the property, phone calls to the homeowner's personal number, and written solicitations sent to the address. This pattern of contact constitutes harassment — and represents a documented, coordinated strategy used by investor-buyers to pressure longtime residents into distressed sales.\n\nSeniors and long-term homeowners are disproportionately targeted. The psychological pressure of repeated contact from strangers expressing interest in buying a family home — often framed as urgent or time-sensitive — is a deliberate tactic, not a coincidence.\n\nI am requesting that the City of Oakland:\n\n1. Establish a Do Not Solicit registry for residential homeowners, similar to the Do Not Call registry, with meaningful penalties for violations\n2. Create a formal complaint and investigation process for residents experiencing coordinated investor solicitation campaigns\n3. Require investor-buyer solicitation mailers and door-to-door agents to disclose that the homeowner has no legal obligation to respond, sell, or engage\n4. Investigate whether any of the soliciting parties have prior code violation complaints, eviction filings, or predatory purchase history in Oakland\n\nA homeowner's front door is not a sales floor. Their personal number is not a lead list.\n\nRespectfully,\n" + (name||"[Your Name]") + "\n[Your Address]\n[Your Email / Phone]";
     }
   }
 ];
@@ -1075,7 +1211,7 @@ function mapPopup(color, label, title, sub, showLetter) {
   return '<div style="font-family:IBM Plex Sans,sans-serif;min-width:220px;"><div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:'+color+';margin-bottom:5px;">'+label+'</div><div style="font-size:14px;font-weight:600;color:#F3EDE3;margin-bottom:4px;">'+title+'</div><div style="font-size:12px;color:#9A9186;line-height:1.5;">'+sub+'</div>'+btn+'</div>';
 }
 
-L.marker([37.8135,-122.2837],{icon:mk('#E8E1D5',20)}).addTo(map).bindPopup(mapPopup('#E8E1D5','The Deed Stands','2617 San Pablo Ave','Owned by A.L. Brown since 1969 · Built 1893 · 56 years of ownership.',false));
+L.marker([37.8135,-122.2837],{icon:mk('#E8E1D5',20)}).addTo(map).bindPopup(mapPopup('#E8E1D5','Our Deed Stands','2617 San Pablo Ave','Owned by A.L. Brown since 1969 · Built 1893 · 56 years of ownership.',false));
 
 [[37.8152,-122.2851,'2534 Myrtle St','Sold to out-of-state LLC, 2022'],
  [37.8118,-122.2870,'1847 Adeline St','Purchased by investment fund, 2021'],
@@ -1112,9 +1248,67 @@ document.getElementById('letter-modal').addEventListener('click', function(e){ i
 // SCROLL REVEAL
 new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); } }); },{ threshold:0.07 }).observe && document.querySelectorAll('.reveal').forEach(function(el){ new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); } }); },{ threshold:0.07 }).observe(el); });
 
-// PROGRESS
-var pf = document.getElementById('progress-fill');
+// A.L. Brown age — always current
+(function(){
+  var bday = new Date(1952, 8, 21); // September 21, 1952 (month is 0-indexed)
+  var today = new Date();
+  var age = today.getFullYear() - bday.getFullYear();
+  if (today < new Date(today.getFullYear(), 8, 21)) age--;
+  var owned = today.getFullYear() - 1969;
+  if (today < new Date(today.getFullYear(), 8, 21)) owned--;
+  var ageEl = document.getElementById('al-age');
+  var yearsEl = document.getElementById('al-years');
+  if (ageEl) ageEl.textContent = age;
+  var badgeEl = document.getElementById('al-years-badge');
+  if (badgeEl) badgeEl.textContent = owned;
+})();
+
 new IntersectionObserver(function(e){ if(e[0].isIntersecting) setTimeout(function(){ pf.style.width='1%'; },300); },{threshold:.5}).observe(pf);
+
+// GOFUNDME WALL
+async function loadGfWall() {
+  var wall = document.getElementById('gf-submitted-wall');
+  if (!wall) return;
+  try {
+    var result = await window.storage.get('gf-campaigns', true);
+    var campaigns = result ? JSON.parse(result.value) : [];
+    if (!campaigns.length) { wall.innerHTML = ''; return; }
+    wall.innerHTML = campaigns.map(function(c) {
+      return '<div class="gf-card">' +
+        '<div class="gf-card-name">' + esc(c.name) + ' · ' + esc(c.address) + '</div>' +
+        '<div class="gf-card-tenure">' + esc(c.tenure) + '</div>' +
+        '<div class="gf-card-desc">' + esc(c.desc) + '</div>' +
+        '<div class="gf-card-purpose">' + esc(c.purpose) + '</div>' +
+        '<a href="' + esc(c.link) + '" target="_blank" class="gf-donate-btn">Donate on GoFundMe →</a>' +
+      '</div>';
+    }).join('');
+  } catch(e) { wall.innerHTML = ''; }
+}
+
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+async function submitGofundme() {
+  var name = document.getElementById('gf-name').value.trim();
+  var address = document.getElementById('gf-address').value.trim();
+  var tenure = document.getElementById('gf-tenure').value;
+  var purpose = document.getElementById('gf-purpose').value.trim();
+  var link = document.getElementById('gf-link').value.trim();
+  var desc = document.getElementById('gf-desc').value.trim();
+  if (!name || !address || !link || !desc) { alert('Please fill in your name, address, GoFundMe link, and description.'); return; }
+  if (!link.startsWith('http')) { alert('Please enter a valid GoFundMe URL starting with https://'); return; }
+  try {
+    var existing = [];
+    try { var r = await window.storage.get('gf-campaigns', true); existing = r ? JSON.parse(r.value) : []; } catch(e2) {}
+    existing.push({ name:name, address:address, tenure:tenure, purpose:purpose, link:link, desc:desc, added: new Date().toLocaleDateString() });
+    await window.storage.set('gf-campaigns', JSON.stringify(existing), true);
+    ['gf-name','gf-address','gf-purpose','gf-link','gf-desc'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+    document.getElementById('gf-tenure').value = '';
+    await loadGfWall();
+    alert('Your campaign has been added to the wall. Thank you.');
+  } catch(e) { alert('There was an error saving your campaign. Please try again.'); }
+}
+
+loadGfWall();
 </script>
 </body>
 </html>

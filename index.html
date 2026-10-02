@@ -503,6 +503,85 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
   <a href="#flag" class="btn-blue">Flag Your Property</a>
 </div>
 
+  <!-- FLAG PROPERTY -->
+<section style="background:var(--black-2);" id="flag">
+  <div class="flag-layout">
+    <div>
+      <div class="section-eyebrow-dark">Flag Your Property</div>
+      <h2 class="section-title-dark">Being Targeted?<br>We Need to Know.</h2>
+      <p class="body-p" style="font-size:15px; margin-bottom:16px;">Every submission becomes part of a growing national dataset. We are mapping the pattern of predatory activity in Oakland — and eventually every American city. The more you tell us, the clearer the scheme becomes.</p>
+      <p class="body-p" style="font-size:15px; margin-bottom:28px;">After you submit, you will receive a tailored response — the exact steps to take, the offices to contact, and the letters to send. We respond within 24 hours.</p>
+      <p class="body-p" style="font-size:12px; color:var(--text-on-dark-dim); margin-bottom:14px;">Select all that apply to your situation:</p>
+      <div class="threat-tags">
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Unexpected tax bill</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Auction notice</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Unsolicited cash offer</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Eviction filing</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">LLC bought neighbor's home</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Inheritance tax burden</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Permit harassment</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Code violation notices</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Missed notifications</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Probate / no will</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Assets drained in probate</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Investor door-knocking</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Repeated unsolicited calls</div>
+        <div class="threat-tag" onclick="this.classList.toggle('selected')">Other</div>
+      </div>
+    </div>
+    <div class="form-card-dark reveal">
+      <div class="form-field">
+        <label class="form-label-dark">Your Name</label>
+        <input type="text" class="form-input-dark" placeholder="First and last name">
+      </div>
+      <div class="form-field">
+        <label class="form-label-dark">Email Address</label>
+        <input type="email" class="form-input-dark" placeholder="you@email.com">
+      </div>
+      <div class="form-field">
+        <label class="form-label-dark">Property Address</label>
+        <input type="text" class="form-input-dark" placeholder="Street address, City, State">
+      </div>
+      <div class="form-field">
+        <label class="form-label-dark">Your relationship to this property</label>
+        <select class="form-select-dark">
+          <option value="">Select one</option>
+          <option>Property owner</option>
+          <option>Tenant</option>
+          <option>Family member of owner</option>
+          <option>Neighbor / community member</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label class="form-label-dark">How long in your family?</label>
+        <select class="form-select-dark">
+          <option value="">Select one</option>
+          <option>Less than 5 years</option>
+          <option>5–15 years</option>
+          <option>15–30 years</option>
+          <option>30–50 years</option>
+          <option>50+ years</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label class="form-label-dark">How urgent is your situation?</label>
+        <select class="form-select-dark">
+          <option value="">Select one</option>
+          <option>Crisis — less than 30 days</option>
+          <option>Urgent — actively under pressure</option>
+          <option>Monitoring — watching for escalation</option>
+          <option>Research — learning before it happens</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label class="form-label-dark">Describe what's happening</label>
+        <textarea class="form-textarea-dark" style="min-height:110px;" placeholder="Include any notices received, dates, company names, official names, and what outcome you're trying to prevent."></textarea>
+      </div>
+      <button class="btn-primary-blue" style="width:100%;" onclick="alert('Submitted. Your tailored action plan will be sent to the email you provided within 24 hours.')">Submit &amp; Get Your Action Plan</button>
+    </div>
+  </div>
+</section>
+
 <!-- A.L. BROWN 
 <section style="background:var(--black-2);" id="al-brown">
   <div class="section-eyebrow-dark">The Story Behind This Site</div>
@@ -536,59 +615,6 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
   </div>
 </section>-->
 
-  
-<!-- 16TH STREET STATION -->
-<section style="position:relative; overflow:hidden; padding:0; min-height:620px; display:flex; align-items:center;" id="16th-street">
- 
-  <!-- VIDEO BACKGROUND -->
-  <div style="position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;">
-    <iframe
-      src="https://www.youtube.com/embed/VADTVfwjobc?autoplay=1&mute=1&loop=1&playlist=VADTVfwjobc&controls=0&disablekb=1&modestbranding=1&showinfo=0&rel=0&iv_load_policy=3"
-      allow="autoplay; encrypted-media"
-      style="position:absolute;top:50%;left:50%;width:177.78vh;min-width:100%;height:56.25vw;min-height:100%;transform:translate(-50%,-50%);border:none;"
-      title="16th Street Station"
-    ></iframe>
-    <!-- Dark overlay -->
-    <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(6,6,6,.92) 45%, rgba(6,6,6,.65) 100%);"></div>
-  </div>
- 
-  <!-- CONTENT -->
-  <div style="position:relative;z-index:1;padding:100px 80px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
-    <div>
-      <div class="section-eyebrow-dark" style="margin-bottom:18px;">West Oakland · Built 1912 · National Historic Register 2025</div>
-      <h2 style="font-family:var(--font-display);font-size:clamp(52px,7vw,88px);line-height:.92;color:var(--off-white);margin-bottom:24px;letter-spacing:.01em;">Save the 16th Street<br>Train Station</h2>
-      <p style="font-size:17px;font-weight:300;line-height:1.85;color:rgba(243,237,227,.7);max-width:480px;margin-bottom:36px;">The grandest railroad station ever built in the San Francisco Bay Area. Birthplace of the Brotherhood of Sleeping Car Porters — America's first Black union. The Ellis Island of the African American community. It is crumbling. And it can be saved — but only with your voice.</p>
-      <div style="display:flex;flex-wrap:wrap;gap:12px;">
-        <a href="https://www.oaklandheritage.org/16th-street-station" target="_blank" class="btn-outline-white">Learn More</a>
-        <a href="https://actionnetwork.org/petitions/bring-the-16th-street-station-back-to-life" target="_blank" class="btn-primary-blue">Sign the Petition</a>
-        <a href="https://oaklandheritage.app.neoncrm.com/forms/15" target="_blank" style="font-family:var(--font-sub);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:14px 24px;background:transparent;color:rgba(243,237,227,.6);border:1px solid rgba(243,237,227,.2);text-decoration:none;display:inline-block;transition:border-color .2s,color .2s;" onmouseover="this.style.borderColor='rgba(243,237,227,.5)';this.style.color='var(--off-white)'" onmouseout="this.style.borderColor='rgba(243,237,227,.2)';this.style.color='rgba(243,237,227,.6)'">Donate</a>
-      </div>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:2px;">
-      <div style="background:rgba(6,6,6,.7);backdrop-filter:blur(8px);border-left:3px solid var(--blue-light);padding:20px 24px;">
-        <div style="font-family:var(--font-sub);font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--blue-light);margin-bottom:6px;">Built</div>
-        <div style="font-family:var(--font-heading);font-size:18px;font-weight:600;color:var(--off-white);">1912 · Beaux-Arts · Jarvis Hunt</div>
-        <div style="font-size:12px;color:rgba(243,237,227,.5);margin-top:4px;">42-ft ceilings · 13,000 sq ft main hall · elevated interurban platform</div>
-      </div>
-      <div style="background:rgba(6,6,6,.7);backdrop-filter:blur(8px);border-left:3px solid var(--blue-light);padding:20px 24px;">
-        <div style="font-family:var(--font-sub);font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--blue-light);margin-bottom:6px;">Significance</div>
-        <div style="font-family:var(--font-heading);font-size:18px;font-weight:600;color:var(--off-white);">West Coast HQ of America's First Black Union</div>
-        <div style="font-size:12px;color:rgba(243,237,227,.5);margin-top:4px;">Brotherhood of Sleeping Car Porters · C.L. Dellums · Catalyst of the Civil Rights Movement</div>
-      </div>
-      <div style="background:rgba(6,6,6,.7);backdrop-filter:blur(8px);border-left:3px solid #C42B2B;padding:20px 24px;">
-        <div style="font-family:var(--font-sub);font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#C42B2B;margin-bottom:6px;">The Threat</div>
-        <div style="font-family:var(--font-heading);font-size:18px;font-weight:600;color:var(--off-white);">Vacant since 1994 · Developer plans to build around it</div>
-        <div style="font-size:12px;color:rgba(243,237,227,.5);margin-top:4px;">Seismically unstable · 72% chance of 6.7+ quake in Bay Area in next 30 years</div>
-      </div>
-      <div style="background:rgba(6,6,6,.7);backdrop-filter:blur(8px);border-left:3px solid #2A7A4F;padding:20px 24px;">
-        <div style="font-family:var(--font-sub);font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#2A7A4F;margin-bottom:6px;">2025 Win</div>
-        <div style="font-family:var(--font-heading);font-size:18px;font-weight:600;color:var(--off-white);">Added to National Register of Historic Places</div>
-        <div style="font-size:12px;color:rgba(243,237,227,.5);margin-top:4px;">Unlocks federal historic tax credits — up to 20% of restoration costs</div>
-      </div>
-    </div>
-  </div>
- 
-</section>
 
 <!-- TAKE ACTION -->
 <section class="action-section" id="take-action">
@@ -814,84 +840,7 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
   </div>
 </section>
 
-<!-- FLAG PROPERTY -->
-<section style="background:var(--black-2);" id="flag">
-  <div class="flag-layout">
-    <div>
-      <div class="section-eyebrow-dark">Flag Your Property</div>
-      <h2 class="section-title-dark">Being Targeted?<br>We Need to Know.</h2>
-      <p class="body-p" style="font-size:15px; margin-bottom:16px;">Every submission becomes part of a growing national dataset. We are mapping the pattern of predatory activity in Oakland — and eventually every American city. The more you tell us, the clearer the scheme becomes.</p>
-      <p class="body-p" style="font-size:15px; margin-bottom:28px;">After you submit, you will receive a tailored response — the exact steps to take, the offices to contact, and the letters to send. We respond within 24 hours.</p>
-      <p class="body-p" style="font-size:12px; color:var(--text-on-dark-dim); margin-bottom:14px;">Select all that apply to your situation:</p>
-      <div class="threat-tags">
-        <div class="threat-tag" onclick="this.classList.toggle('selected')">Unexpected tax bill</div>
-        <div class="threat-tag" onclick="this.classList.toggle('selected')">Auction notice</div>
-        <div class="threat-tag" onclick="this.classList.toggle('selected')">Unsolicited cash offer</div>
-        <div class="threat-tag" onclick="this.classList.toggle('selected')">Eviction filing</div>
-        <div class="threat-tag" onclick="this.classList.toggle('selected')">LLC bought neighbor's home</div>
-        <div class="threat-tag" onclick="this.classList.toggle('selected')">Inheritance tax burden</div>
-        <div class="threat-tag" onclick="this.classList.toggle('selected')">Permit harassment</div>
-        <div class="threat-tag" onclick="this.classList.toggle('selected')">Code violation notices</div>
-        <div class="threat-tag" onclick="this.classList.toggle('selected')">Missed notifications</div>
-        <div class="threat-tag" onclick="this.classList.toggle('selected')">Probate / no will</div>
-        <div class="threat-tag" onclick="this.classList.toggle('selected')">Assets drained in probate</div>
-        <div class="threat-tag" onclick="this.classList.toggle('selected')">Investor door-knocking</div>
-        <div class="threat-tag" onclick="this.classList.toggle('selected')">Repeated unsolicited calls</div>
-        <div class="threat-tag" onclick="this.classList.toggle('selected')">Other</div>
-      </div>
-    </div>
-    <div class="form-card-dark reveal">
-      <div class="form-field">
-        <label class="form-label-dark">Your Name</label>
-        <input type="text" class="form-input-dark" placeholder="First and last name">
-      </div>
-      <div class="form-field">
-        <label class="form-label-dark">Email Address</label>
-        <input type="email" class="form-input-dark" placeholder="you@email.com">
-      </div>
-      <div class="form-field">
-        <label class="form-label-dark">Property Address</label>
-        <input type="text" class="form-input-dark" placeholder="Street address, City, State">
-      </div>
-      <div class="form-field">
-        <label class="form-label-dark">Your relationship to this property</label>
-        <select class="form-select-dark">
-          <option value="">Select one</option>
-          <option>Property owner</option>
-          <option>Tenant</option>
-          <option>Family member of owner</option>
-          <option>Neighbor / community member</option>
-        </select>
-      </div>
-      <div class="form-field">
-        <label class="form-label-dark">How long in your family?</label>
-        <select class="form-select-dark">
-          <option value="">Select one</option>
-          <option>Less than 5 years</option>
-          <option>5–15 years</option>
-          <option>15–30 years</option>
-          <option>30–50 years</option>
-          <option>50+ years</option>
-        </select>
-      </div>
-      <div class="form-field">
-        <label class="form-label-dark">How urgent is your situation?</label>
-        <select class="form-select-dark">
-          <option value="">Select one</option>
-          <option>Crisis — less than 30 days</option>
-          <option>Urgent — actively under pressure</option>
-          <option>Monitoring — watching for escalation</option>
-          <option>Research — learning before it happens</option>
-        </select>
-      </div>
-      <div class="form-field">
-        <label class="form-label-dark">Describe what's happening</label>
-        <textarea class="form-textarea-dark" style="min-height:110px;" placeholder="Include any notices received, dates, company names, official names, and what outcome you're trying to prevent."></textarea>
-      </div>
-      <button class="btn-primary-blue" style="width:100%;" onclick="alert('Submitted. Your tailored action plan will be sent to the email you provided within 24 hours.')">Submit &amp; Get Your Action Plan</button>
-    </div>
-  </div>
-</section>
+
 
 <!-- COMMUNITY NEEDS -->
 <section style="background:var(--black-3); border-top:1px solid var(--border-dark);" id="community-needs">
@@ -1066,7 +1015,58 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
     </div>
   </div>
 </div>
-
+<!-- 16TH STREET STATION -->
+<section style="position:relative; overflow:hidden; padding:0; min-height:620px; display:flex; align-items:center;" id="16th-street">
+ 
+  <!-- VIDEO BACKGROUND -->
+  <div style="position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;">
+    <iframe
+      src="https://www.youtube.com/embed/VADTVfwjobc?autoplay=1&mute=1&loop=1&playlist=VADTVfwjobc&controls=0&disablekb=1&modestbranding=1&showinfo=0&rel=0&iv_load_policy=3"
+      allow="autoplay; encrypted-media"
+      style="position:absolute;top:50%;left:50%;width:177.78vh;min-width:100%;height:56.25vw;min-height:100%;transform:translate(-50%,-50%);border:none;"
+      title="16th Street Station"
+    ></iframe>
+    <!-- Dark overlay -->
+    <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(6,6,6,.92) 45%, rgba(6,6,6,.65) 100%);"></div>
+  </div>
+ 
+  <!-- CONTENT -->
+  <div style="position:relative;z-index:1;padding:100px 80px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+    <div>
+      <div class="section-eyebrow-dark" style="margin-bottom:18px;">West Oakland · Built 1912 · National Historic Register 2025</div>
+      <h2 style="font-family:var(--font-display);font-size:clamp(52px,7vw,88px);line-height:.92;color:var(--off-white);margin-bottom:24px;letter-spacing:.01em;">Save the 16th Street<br>Train Station</h2>
+      <p style="font-size:17px;font-weight:300;line-height:1.85;color:rgba(243,237,227,.7);max-width:480px;margin-bottom:36px;">The grandest railroad station ever built in the San Francisco Bay Area. Birthplace of the Brotherhood of Sleeping Car Porters — America's first Black union. The Ellis Island of the African American community. It is crumbling. And it can be saved — but only with your voice.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;">
+        <a href="https://www.oaklandheritage.org/16th-street-station" target="_blank" class="btn-outline-white">Learn More</a>
+        <a href="https://actionnetwork.org/petitions/bring-the-16th-street-station-back-to-life" target="_blank" class="btn-primary-blue">Sign the Petition</a>
+        <a href="https://oaklandheritage.app.neoncrm.com/forms/15" target="_blank" style="font-family:var(--font-sub);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:14px 24px;background:transparent;color:rgba(243,237,227,.6);border:1px solid rgba(243,237,227,.2);text-decoration:none;display:inline-block;transition:border-color .2s,color .2s;" onmouseover="this.style.borderColor='rgba(243,237,227,.5)';this.style.color='var(--off-white)'" onmouseout="this.style.borderColor='rgba(243,237,227,.2)';this.style.color='rgba(243,237,227,.6)'">Donate</a>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <div style="background:rgba(6,6,6,.7);backdrop-filter:blur(8px);border-left:3px solid var(--blue-light);padding:20px 24px;">
+        <div style="font-family:var(--font-sub);font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--blue-light);margin-bottom:6px;">Built</div>
+        <div style="font-family:var(--font-heading);font-size:18px;font-weight:600;color:var(--off-white);">1912 · Beaux-Arts · Jarvis Hunt</div>
+        <div style="font-size:12px;color:rgba(243,237,227,.5);margin-top:4px;">42-ft ceilings · 13,000 sq ft main hall · elevated interurban platform</div>
+      </div>
+      <div style="background:rgba(6,6,6,.7);backdrop-filter:blur(8px);border-left:3px solid var(--blue-light);padding:20px 24px;">
+        <div style="font-family:var(--font-sub);font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--blue-light);margin-bottom:6px;">Significance</div>
+        <div style="font-family:var(--font-heading);font-size:18px;font-weight:600;color:var(--off-white);">West Coast HQ of America's First Black Union</div>
+        <div style="font-size:12px;color:rgba(243,237,227,.5);margin-top:4px;">Brotherhood of Sleeping Car Porters · C.L. Dellums · Catalyst of the Civil Rights Movement</div>
+      </div>
+      <div style="background:rgba(6,6,6,.7);backdrop-filter:blur(8px);border-left:3px solid #C42B2B;padding:20px 24px;">
+        <div style="font-family:var(--font-sub);font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#C42B2B;margin-bottom:6px;">The Threat</div>
+        <div style="font-family:var(--font-heading);font-size:18px;font-weight:600;color:var(--off-white);">Vacant since 1994 · Developer plans to build around it</div>
+        <div style="font-size:12px;color:rgba(243,237,227,.5);margin-top:4px;">Seismically unstable · 72% chance of 6.7+ quake in Bay Area in next 30 years</div>
+      </div>
+      <div style="background:rgba(6,6,6,.7);backdrop-filter:blur(8px);border-left:3px solid #2A7A4F;padding:20px 24px;">
+        <div style="font-family:var(--font-sub);font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#2A7A4F;margin-bottom:6px;">2025 Win</div>
+        <div style="font-family:var(--font-heading);font-size:18px;font-weight:600;color:var(--off-white);">Added to National Register of Historic Places</div>
+        <div style="font-size:12px;color:rgba(243,237,227,.5);margin-top:4px;">Unlocks federal historic tax credits — up to 20% of restoration costs</div>
+      </div>
+    </div>
+  </div>
+</section>
+  
 <!-- FOOTER -->
 <footer>
   <div class="footer-row-top">
@@ -1078,7 +1078,7 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
       <div class="footer-creator-label">Created by</div>
       <div class="footer-creator-name">Alanne International</div>
       <div style="margin-top:5px;"><a href="https://www.getclarity.consulting" target="_blank">getclarity.consulting</a></div>
-      <div class="footer-creator-note">Cara A. Brown, MBA<br>In defense of A.L. Brown —<br>and every family like ours.</div>
+      <div class="footer-creator-note">Cara A. Brown, MBA<br>In support of my family —<br>and every family like ours.</div>
     </div>
   </div>
   <div class="footer-row-nav">

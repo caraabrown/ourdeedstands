@@ -490,7 +490,7 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
   <div id="oakland-map"></div>
   <div class="map-legend">
     <div class="legend-title">Map Key</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#E8E1D5;"></div>A.L. Brown — Our Deed Stands</div>
+   <!-- <div class="legend-item"><div class="legend-dot" style="background:#E8E1D5;"></div>A.L. Brown — Our Deed Stands</div> -->
     <div class="legend-item"><div class="legend-dot" style="background:#C42B2B;"></div>Sold to investor / LLC</div>
     <div class="legend-item"><div class="legend-dot" style="background:#E5A020;"></div>Resident-flagged: at risk</div>
     <div class="legend-item"><div class="legend-dot" style="background:#1A4FA0;"></div>Protected / community-held</div>
@@ -502,7 +502,7 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
   <a href="#flag" class="btn-blue">Flag Your Property</a>
 </div>
 
-<!-- A.L. BROWN -->
+<!-- A.L. BROWN 
 <section style="background:var(--black-2);" id="al-brown">
   <div class="section-eyebrow-dark">The Story Behind This Site</div>
   <div class="story-layout">
@@ -533,7 +533,7 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
       <a href="#rebuild" class="btn-primary-blue" style="margin-top:8px;">Help Rebuild His Building</a>
     </div>
   </div>
-</section>
+</section>-->
 
 <!-- TAKE ACTION -->
 <section class="action-section" id="take-action">
@@ -615,7 +615,7 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
   <div class="fundraise-layout">
     <div>
       <div class="section-eyebrow-dark">Rebuild the Block</div>
-      <h2 class="section-title-dark">Help A.L. Brown Keep What He Built</h2>
+      <h2 class="section-title-dark">Help Us Keep What We Built</h2>
       <p class="section-lead-dark">A building that has stood since 1893 needs critical work to stand another 130 years — and to remain in the hands of the family that has protected it for over half a century.</p>
       <div>
         <div class="progress-header">
@@ -918,14 +918,14 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
       <div>
         <div style="font-family:var(--font-sub); font-size:10px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; color:var(--text-on-dark-dim); margin-bottom:16px;">Active Community Campaigns</div>
         <div id="gf-wall">
-          <!-- A.L. Brown anchor campaign -->
+          <!-- A.L. Brown anchor campaign 
           <div class="gf-card">
             <div class="gf-card-name">A.L. Brown · 2617 San Pablo Ave</div>
             <div class="gf-card-tenure">Owner since 1969 · 55+ years</div>
             <div class="gf-card-desc">Electrical system replacement, 2 commercial bathrooms, and junk hauling to restore a historic West Oakland building built in 1893.</div>
             <div class="gf-card-purpose">Electrical · Plumbing · Rehab</div>
             <a href="#" class="gf-donate-btn">GoFundMe Launching Soon — Check Back</a>
-          </div>
+          </div>-->
           <div id="gf-submitted-wall"></div>
           <div style="margin-top:20px;text-align:right;">
             <button onclick="openAdmin()" style="background:none;border:none;font-family:var(--font-sub);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-on-dark-dim);cursor:pointer;padding:0;">Admin</button>
@@ -1042,7 +1042,7 @@ footer { background:var(--black); border-top:1px solid var(--border-dark); }
         <li><a href="#map">The Map</a></li>
         <li><a href="#take-action">Send a Petition</a></li>
         <li><a href="#flag">Flag Your Property</a></li>
-        <li><a href="#rebuild">Support A.L. Brown</a></li>
+        <li><a href="#rebuild">Support Us</a></li>
       </ul>
     </div>
     <div>
@@ -1217,7 +1217,7 @@ function mapPopup(color, label, title, sub, showLetter) {
   return '<div style="font-family:IBM Plex Sans,sans-serif;min-width:220px;"><div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:'+color+';margin-bottom:5px;">'+label+'</div><div style="font-size:14px;font-weight:600;color:#F3EDE3;margin-bottom:4px;">'+title+'</div><div style="font-size:12px;color:#9A9186;line-height:1.5;">'+sub+'</div>'+btn+'</div>';
 }
 
-L.marker([37.8135,-122.2837],{icon:mk('#E8E1D5',20)}).addTo(map).bindPopup(mapPopup('#E8E1D5','Our Deed Stands','2617 San Pablo Ave','Owned by A.L. Brown since 1969 · Built 1893 · 56 years of ownership.',false));
+L.marker([37.8135,-122.2837],{icon:mk('#E8E1D5',20)}).addTo(map).bindPopup(mapPopup('#E8E1D5','Our Deed Stands','2617 San Pablo Ave','Built 1893 · 56 years of ownership.',false));
 
 [[37.8152,-122.2851,'2534 Myrtle St','Sold to out-of-state LLC, 2022'],
  [37.8118,-122.2870,'1847 Adeline St','Purchased by investment fund, 2021'],
